@@ -33,6 +33,8 @@ const navLinks = [
   { title: "Contáctanos", href: "#blog" },
 ];
 
+const MotionButton = motion(Button);
+
 const Navbar = () => {
   const theme = useTheme(); // Obtiene el tema actual
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
@@ -218,41 +220,51 @@ const Navbar = () => {
                 }}
               >
                 {navLinks.map((link) => (
-                  <Button
-                    key={link.title}
+                  <MotionButton
+                    initial="rest"
+                    whileHover="hover"
+                    animate="rest"
+                    variants={{
+                      rest: { scale: 1, color: "#2b3aa3" },
+                      hover: {
+                        scale: 1.12,
+                        color: "#3f5ae6",
+                        backdropFilter: "blur(10px)",
+                        //WebkitBackdropFilter: "blur(10px)", // 👈 soporte Safari
+                        backgroundColor: "rgba(51, 72, 199, 0.1)",
+                      },
+                    }}
+                    transition={{ duration: 0.5 }}
                     sx={{
                       position: "relative",
                       fontSize: 17,
                       fontWeight: "normal",
-                      color: "#2b3aa3",
-
-                      "&:hover": {
-                        backgroundColor: "transparent",
-                        transform: "scale(1.12)",
-                        transition: "all 0.5s ease",
-                        color: "#3f5ae6",
-                      },
-
-                      "&:after": {
-                        content: '""',
-                        position: "absolute",
-                        width: "0%",
-                        height: "2px",
-                        bottom: "6px",
-                        left: "50%",
-                        background:
-                          "linear-gradient(50deg, #2b4acb 15%, #58d1c9 95%)",
-                        transition: "all 0.35s ease",
-                        transform: "translateX(-50%)",
-                      },
-
-                      "&:hover:after": {
-                        width: "70%",
-                      },
+                      backgroundColor: "transparent",
+                      borderRadius: 2,
                     }}
                   >
                     {link.title}
-                  </Button>
+
+                    <Box
+                      component={motion.span}
+                      variants={{
+                        rest: { width: 0 },
+                        hover: { width: "70%" },
+                      }}
+                      transition={{ duration: 0.35 }}
+                      sx={{
+                        position: "absolute",
+                        display: "block",
+                        height: "2px",
+                        bottom: "6px",
+                        left: "50%",
+                        transform: "translateX(-50%)",
+                        background:
+                          "linear-gradient(50deg, #2b4acb 15%, #58d1c9 95%)",
+                        pointerEvents: "none",
+                      }}
+                    />
+                  </MotionButton>
                 ))}
               </Box>
             )}
