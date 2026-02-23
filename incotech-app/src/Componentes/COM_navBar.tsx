@@ -36,8 +36,9 @@ const navLinks = [
 ];
 
 //Botones Animados con Framer Motion de MUI
-const MotionListItemButton = motion(ListItemButton);
+const MotionListItemButton = motion(ListItemButton as React.ComponentType<any>);
 const MotionButton = motion(Button);
+const MotionBox = motion(Box);
 
 const Navbar = () => {
   const theme = useTheme(); // Obtiene el tema actual
@@ -80,20 +81,26 @@ const Navbar = () => {
 
       <List>
         {/* Renderiza links dinámicamente */}
-        {navLinks.map((item) => (
+        {navLinks.map((item,index) => (
           <ListItem key={item.title} disablePadding>
             <MotionListItemButton
               component="a"
               href={item.href}
               onClick={handleDrawerToggle}
-              initial="rest"
-              whileHover="hover"
-              animate="rest"
+              initial={{ opacity: 0, x: 80 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{
+                duration: 0.5,
+                delay: index * 0.1,  // 👈 efecto escalonado
+                ease: "easeOut",
+              }}
+              whileHover={{ scale: 1.03 }}
               sx={{
                 position: "relative",
                 textAlign: "center",
                 color: theme.palette.primary.dark,
                 overflow: "hidden",
+                fontWeight: "bold",
               }}
             >
               <ListItemText primary={item.title} />
@@ -125,83 +132,138 @@ const Navbar = () => {
         ))}
 
         {/* Botón principal en móvil */}
-        <ListItem disablePadding>
-          <ListItemButton
-            sx={{ textAlign: "center", mt: 2 }}
-            component="a"
-            href="#signup"
-            onClick={handleDrawerToggle}
+        <ListItem disablePadding sx={{justifyContent: "center"}}>
+          <MotionBox
+            initial={{ opacity: 0, x: 50, scale: 0.95 }}
+            animate={{ opacity: 1, x: 0, scale: 1 }}
+            transition={{
+              duration: 0.6,
+              ease: "easeOut",
+              delay: 0.5,
+            }}
           >
-            <Button
-              variant="contained"
-              color="primary"
-              fullWidth
-              sx={{
-                borderRadius: 50,
-                border: "none",
-                outline: "none",
-                color: "#fff",
-                cursor: "pointer",
-                position: "relative",
-                zIndex: 0,
-                background: "linear-gradient(50deg, #2b4acb 15%, #58d1c9 95%)",
-                boxShadow: "0 4px 20px rgba(99, 102, 241, 0.25)",
-
-                "&::before": {
-                  content: '""',
-                  background: "linear-gradient(50deg, #2b4acb , white)",
-                  position: "absolute",
-                  top: -2,
-                  left: -2,
-                  backgroundSize: "400%",
-                  zIndex: -1,
-                  filter: "blur(5px)",
-                  width: "calc(100% + 4px)",
-                  height: "calc(100% + 4px)",
-                  animation: "glowing 2s linear infinite",
-                  opacity: 0,
-                  transition: "opacity .3s ease-in-out",
+            <ListItemButton
+              sx={{ textAlign: "center", mt: 2}}
+              component="a"
+              href="#signup"
+              onClick={handleDrawerToggle}
+            >
+              <Button
+                variant="contained"
+                color="primary"
+                fullWidth
+                sx={{
                   borderRadius: 50,
-                },
-
-                "&:hover::before": {
-                  opacity: 1,
-                },
-
-                "&:active": {
-                  color: "#000",
-                },
-
-                "&:active::after": {
-                  background: "transparent",
-                },
-
-                "&::after": {
-                  zIndex: -1,
-                  content: '""',
-                  position: "absolute",
-                  width: "100%",
-                  height: "100%",
+                  border: "none",
+                  outline: "none",
+                  color: "#fff",
+                  cursor: "pointer",
+                  position: "relative",
+                  zIndex: 0,
                   background:
                     "linear-gradient(50deg, #2b4acb 15%, #58d1c9 95%)",
-                  left: 0,
-                  top: 0,
-                  borderRadius: 50,
-                },
+                  boxShadow: "0 4px 20px rgba(99, 102, 241, 0.25)",
 
-                "@keyframes glowing": {
-                  "0%": { backgroundPosition: "0 0" },
-                  "20%": { backgroundPosition: "25% 0" },
-                  "40%": { backgroundPosition: "50% 0" },
-                  "60%": { backgroundPosition: "75% 0" },
-                  "80%": { backgroundPosition: "100% 0" },
-                  "100%": { backgroundPosition: "0% 0" },
-                },
+                  "&::before": {
+                    content: '""',
+                    background: "linear-gradient(50deg, #2b4acb , white)",
+                    position: "absolute",
+                    top: -2,
+                    left: -2,
+                    backgroundSize: "400%",
+                    zIndex: -1,
+                    filter: "blur(5px)",
+                    width: "calc(100% + 4px)",
+                    height: "calc(100% + 4px)",
+                    animation: "glowing 2s linear infinite",
+                    opacity: 0,
+                    transition: "opacity .3s ease-in-out",
+                    borderRadius: 50,
+                  },
+
+                  "&:hover::before": {
+                    opacity: 1,
+                  },
+
+                  "&:active": {
+                    color: "#000",
+                  },
+
+                  "&:active::after": {
+                    background: "transparent",
+                  },
+
+                  "&::after": {
+                    zIndex: -1,
+                    content: '""',
+                    position: "absolute",
+                    width: "100%",
+                    height: "100%",
+                    background:
+                      "linear-gradient(50deg, #2b4acb 15%, #58d1c9 95%)",
+                    left: 0,
+                    top: 0,
+                    borderRadius: 50,
+                  },
+
+                  "@keyframes glowing": {
+                    "0%": { backgroundPosition: "0 0" },
+                    "20%": { backgroundPosition: "25% 0" },
+                    "40%": { backgroundPosition: "50% 0" },
+                    "60%": { backgroundPosition: "75% 0" },
+                    "80%": { backgroundPosition: "100% 0" },
+                    "100%": { backgroundPosition: "0% 0" },
+                  },
+                }}
+              >
+                Incotech Tienda
+              </Button>
+            </ListItemButton>
+          </MotionBox>
+        </ListItem>
+
+        <ListItem
+          sx={{
+          }}
+        >
+          <MotionBox
+            initial={{ opacity: 0, y: 30, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{
+              duration: 0.6,
+              ease: "easeOut",
+              delay: 0.2,
+            }}
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: 1,
+            }}
+          >
+            <Box
+              component="img"
+              src={logo}
+              alt="Incotech logo"
+              sx={{
+                height: 50,
+                width: 50,
+                objectFit: "contain",
+              }}
+            />
+
+            <Typography
+              variant="h5"
+              sx={{
+                fontWeight: 800,
+                letterSpacing: "-0.5px",
+                background: "linear-gradient(50deg, #2b4acb 15%, #58d1c9 95%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
               }}
             >
-              Incotech Tienda
-            </Button>
-          </ListItemButton>
+              Incotech
+            </Typography>
+          </MotionBox>
         </ListItem>
       </List>
     </Box>
@@ -441,9 +503,9 @@ const Navbar = () => {
         sx={{
           "& .MuiDrawer-paper": {
             width: 200,
-            backdropFilter: "blur(3px)",
-            WebkitBackdropFilter: "blur(3px)",
-            backgroundColor: "rgba(224, 231, 255, 0.7)",
+            backdropFilter: "blur(4px)",
+            WebkitBackdropFilter: "blur(4px)",
+            backgroundColor: "rgba(224, 231, 255, 0.5)",
             borderLeft: "1px solid rgba(255,255,255,0.08)",
           },
         }}
