@@ -1,6 +1,10 @@
 import { createTheme } from "@mui/material/styles";
+import Jakarta from "./assets/fonts/PlusJakarta.ttf";
 
 const theme = createTheme({
+  typography: {
+    fontFamily: "Jakarta, Arial, sans-serif",
+  },
   palette: {
     mode: "light",
 
@@ -22,6 +26,18 @@ const theme = createTheme({
   },
 
   components: {
+    MuiCssBaseline: {
+      styleOverrides: `
+        @font-face {
+          font-family: 'Jakarta';
+          font-style: normal;
+          font-display: swap;
+          font-weight: 400;
+          src: url(${Jakarta}) format('truetype');
+        }
+      `,
+    },
+
     MuiButton: {
       styleOverrides: {
         root: {

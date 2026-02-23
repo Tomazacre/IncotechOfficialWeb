@@ -153,9 +153,9 @@ const Navbar = () => {
         elevation={0}
         sx={{
           transition: "all 0.4s ease",
-          backdropFilter: scrolled ? "blur(5px)" : "none",
+          backdropFilter: scrolled ? "blur(7px)" : "none",
           backgroundColor: scrolled
-            ? alpha(theme.palette.background.default, 0.72)
+            ? alpha(theme.palette.background.default, 0)
             : "transparent",
           boxShadow: scrolled ? "0 4px 30px rgba(0,0,0,0.08)" : "none",
         }}

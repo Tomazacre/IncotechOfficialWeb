@@ -6,12 +6,13 @@ import PruebaHD from "./pruebasEnCodigo.tsx";
 /*import DottedConnector from "./pruebasEnCodigo.tsx";*/
 import Navbar from "./Componentes/COM_navBar.tsx";
 import temaCust from "./TemaCustom.tsx";
-import { ThemeProvider } from "@mui/material";
+import { ThemeProvider, CssBaseline } from "@mui/material";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <ThemeProvider theme={temaCust}>
-      {<Navbar />}
+      <CssBaseline />
+      {/*<Navbar />*/}
       {/*<App />*/}
       <PruebaHD />
     </ThemeProvider>
