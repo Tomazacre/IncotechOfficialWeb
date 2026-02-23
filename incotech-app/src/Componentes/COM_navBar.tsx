@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+//import React from "react";
+import { useState, useEffect } from "react";
 import logo from "../assets/IncotechLogo.png";
 
 // Componentes y hooks de Material UI
