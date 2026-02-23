@@ -21,10 +21,10 @@ import {
   alpha, // Hace colores con transparencia
 } from "@mui/material";
 
-import MenuIcon from "@mui/icons-material/Menu"; // Ícono hamburguesa
+//import MenuIcon from "@mui/icons-material/Menu"; // Ícono hamburguesa
 import MenuOpenRoundedIcon from "@mui/icons-material/MenuOpenRounded";
 import CloseIcon from "@mui/icons-material/Close"; // Ícono cerrar
-import { motion, scale } from "framer-motion"; // Animaciones (opcional)
+import { motion } from "framer-motion"; // Animaciones (opcional)
 
 // Links del menú (se renderizan dinámicamente con map)
 const navLinks = [
@@ -81,7 +81,7 @@ const Navbar = () => {
 
       <List>
         {/* Renderiza links dinámicamente */}
-        {navLinks.map((item,index) => (
+        {navLinks.map((item, index) => (
           <ListItem key={item.title} disablePadding>
             <MotionListItemButton
               component="a"
@@ -91,7 +91,7 @@ const Navbar = () => {
               animate={{ opacity: 1, x: 0 }}
               transition={{
                 duration: 0.5,
-                delay: index * 0.1,  // 👈 efecto escalonado
+                delay: index * 0.1, // 👈 efecto escalonado
                 ease: "easeOut",
               }}
               whileHover={{ scale: 1.03 }}
@@ -132,7 +132,7 @@ const Navbar = () => {
         ))}
 
         {/* Botón principal en móvil */}
-        <ListItem disablePadding sx={{justifyContent: "center"}}>
+        <ListItem disablePadding sx={{ justifyContent: "center" }}>
           <MotionBox
             initial={{ opacity: 0, x: 50, scale: 0.95 }}
             animate={{ opacity: 1, x: 0, scale: 1 }}
@@ -143,7 +143,7 @@ const Navbar = () => {
             }}
           >
             <ListItemButton
-              sx={{ textAlign: "center", mt: 2}}
+              sx={{ textAlign: "center", mt: 2 }}
               component="a"
               href="#signup"
               onClick={handleDrawerToggle}
@@ -222,10 +222,7 @@ const Navbar = () => {
           </MotionBox>
         </ListItem>
 
-        <ListItem
-          sx={{
-          }}
-        >
+        <ListItem sx={{}}>
           <MotionBox
             initial={{ opacity: 0, y: 30, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
