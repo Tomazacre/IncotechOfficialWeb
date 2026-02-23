@@ -22,8 +22,9 @@ import {
 } from "@mui/material";
 
 import MenuIcon from "@mui/icons-material/Menu"; // Ícono hamburguesa
+import MenuOpenRoundedIcon from "@mui/icons-material/MenuOpenRounded";
 import CloseIcon from "@mui/icons-material/Close"; // Ícono cerrar
-import { motion } from "framer-motion"; // Animaciones (opcional)
+import { motion, scale } from "framer-motion"; // Animaciones (opcional)
 
 // Links del menú (se renderizan dinámicamente con map)
 const navLinks = [
@@ -34,6 +35,8 @@ const navLinks = [
   { title: "Contáctanos", href: "#blog" },
 ];
 
+//Botones Animados con Framer Motion de MUI
+const MotionListItemButton = motion(ListItemButton);
 const MotionButton = motion(Button);
 
 const Navbar = () => {
@@ -79,34 +82,45 @@ const Navbar = () => {
         {/* Renderiza links dinámicamente */}
         {navLinks.map((item) => (
           <ListItem key={item.title} disablePadding>
-            <ListItemButton
-              sx={{
-                position: "relative",
-                textAlign: "center",
-                // Línea animada debajo del botón
-                "&:after": {
-                  content: '""',
-                  position: "absolute",
-                  width: "0%",
-                  height: "2px",
-                  bottom: "6px",
-                  left: "50%",
-                  background: "linear-gradient(90deg, #6366f1, #a855f7)",
-                  transition: "all 0.35s ease",
-                  transform: "translateX(-50%)",
-                },
-
-                // Expande la línea en hover
-                "&:hover:after": {
-                  width: "30%",
-                },
-              }}
+            <MotionListItemButton
               component="a"
               href={item.href}
               onClick={handleDrawerToggle}
+              initial="rest"
+              whileHover="hover"
+              animate="rest"
+              sx={{
+                position: "relative",
+                textAlign: "center",
+                color: theme.palette.primary.dark,
+                overflow: "hidden",
+              }}
             >
               <ListItemText primary={item.title} />
-            </ListItemButton>
+
+              {/* Línea animada */}
+              <motion.span
+                variants={{
+                  rest: { width: 0 },
+                  hover: { width: "30%" },
+                }}
+                transition={{
+                  duration: 0.35,
+                  ease: [0.4, 0, 0.2, 1],
+                }}
+                style={{
+                  position: "absolute",
+                  height: "2px",
+                  bottom: "6px",
+                  left: "50%",
+                  transform: "translateX(-50%)",
+                  background:
+                    "linear-gradient(50deg, #2b4acb 15%, #58d1c9 95%)",
+                  pointerEvents: "none",
+                  borderRadius: 2,
+                }}
+              />
+            </MotionListItemButton>
           </ListItem>
         ))}
 
@@ -124,16 +138,65 @@ const Navbar = () => {
               fullWidth
               sx={{
                 borderRadius: 50,
-                background: "linear-gradient(45deg, #6366f1 30%, #a855f7 90%)",
+                border: "none",
+                outline: "none",
+                color: "#fff",
+                cursor: "pointer",
+                position: "relative",
+                zIndex: 0,
+                background: "linear-gradient(50deg, #2b4acb 15%, #58d1c9 95%)",
                 boxShadow: "0 4px 20px rgba(99, 102, 241, 0.25)",
 
-                // Animación hover
-                "&:hover": {
-                  transform: "translateY(-2px)",
-                  boxShadow: "0 10px 30px rgba(99, 102, 241, 0.4)",
+                "&::before": {
+                  content: '""',
+                  background: "linear-gradient(50deg, #2b4acb , white)",
+                  position: "absolute",
+                  top: -2,
+                  left: -2,
+                  backgroundSize: "400%",
+                  zIndex: -1,
+                  filter: "blur(5px)",
+                  width: "calc(100% + 4px)",
+                  height: "calc(100% + 4px)",
+                  animation: "glowing 2s linear infinite",
+                  opacity: 0,
+                  transition: "opacity .3s ease-in-out",
+                  borderRadius: 50,
                 },
 
-                transition: "all 0.3s ease",
+                "&:hover::before": {
+                  opacity: 1,
+                },
+
+                "&:active": {
+                  color: "#000",
+                },
+
+                "&:active::after": {
+                  background: "transparent",
+                },
+
+                "&::after": {
+                  zIndex: -1,
+                  content: '""',
+                  position: "absolute",
+                  width: "100%",
+                  height: "100%",
+                  background:
+                    "linear-gradient(50deg, #2b4acb 15%, #58d1c9 95%)",
+                  left: 0,
+                  top: 0,
+                  borderRadius: 50,
+                },
+
+                "@keyframes glowing": {
+                  "0%": { backgroundPosition: "0 0" },
+                  "20%": { backgroundPosition: "25% 0" },
+                  "40%": { backgroundPosition: "50% 0" },
+                  "60%": { backgroundPosition: "75% 0" },
+                  "80%": { backgroundPosition: "100% 0" },
+                  "100%": { backgroundPosition: "0% 0" },
+                },
               }}
             >
               Incotech Tienda
@@ -229,7 +292,7 @@ const Navbar = () => {
                       rest: { scale: 1, color: "#2b3aa3" },
                       hover: {
                         scale: 1.12,
-                        color: "#3f5ae6",
+                        color: theme.palette.primary.light,
                         backdropFilter: "blur(10px)",
                         //WebkitBackdropFilter: "blur(10px)", // 👈 soporte Safari
                         backgroundColor: "rgba(51, 72, 199, 0.1)",
@@ -270,7 +333,7 @@ const Navbar = () => {
               </Box>
             )}
 
-            {/* Derecha */}
+            {/* Boton "Incotech Tienda" Derecha */}
             <Box
               sx={{
                 display: "flex",
@@ -353,8 +416,16 @@ const Navbar = () => {
               )}
 
               {isMobile && (
-                <IconButton onClick={handleDrawerToggle}>
-                  <MenuIcon />
+                <IconButton
+                  onClick={handleDrawerToggle}
+                  sx={{
+                    display: "flow",
+                    justifyContent: "flex-end",
+                    left: { xs: "37vw", sm: "43vw", md: "43vw", lg: "43vw" },
+                    color: "white",
+                  }}
+                >
+                  <MenuOpenRoundedIcon sx={{ transform: "scale(1.6)" }} />
                 </IconButton>
               )}
             </Box>
@@ -369,8 +440,11 @@ const Navbar = () => {
         onClose={handleDrawerToggle}
         sx={{
           "& .MuiDrawer-paper": {
-            width: 280,
-            backdropFilter: "blur(16px)",
+            width: 200,
+            backdropFilter: "blur(3px)",
+            WebkitBackdropFilter: "blur(3px)",
+            backgroundColor: "rgba(224, 231, 255, 0.7)",
+            borderLeft: "1px solid rgba(255,255,255,0.08)",
           },
         }}
       >

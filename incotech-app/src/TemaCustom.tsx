@@ -9,9 +9,9 @@ const theme = createTheme({
     mode: "light",
 
     primary: {
-      light: "#818cf8", // antes 400
+      light: "#DBE9FB", // antes 400
       main: "#2B4ACB", // tu color principal real
-      dark: "#1C3392", // antes solidActiveBg
+      dark: "#152C81", // antes solidActiveBg
       contrastText: "#FFFFFF",
     },
 
