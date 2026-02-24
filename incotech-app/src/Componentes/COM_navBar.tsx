@@ -98,9 +98,44 @@ const Navbar = () => {
       }}
     >
       {/* Botón cerrar */}
-      <Box sx={{ display: "flex", justifyContent: "flex-end", px: 2 }}>
-        <IconButton onClick={handleDrawerToggle}>
-          <CloseIcon />
+      <Box
+        sx={{
+          display: "flex",
+          px: 2,
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
+        <Typography
+          sx={{
+            color: "white",
+            fontSize: 25,
+          }}
+        >
+          Menu de Inicio
+        </Typography>
+
+        {/* Botón cerrar */}
+        <IconButton
+          onClick={handleDrawerToggle}
+          sx={{
+            justifyContent: "center",
+            borderRadius: "20px",
+            border: "1px solid",
+            borderColor: "rgba(255, 255, 255, 0.1)",
+            boxShadow: "0 4px 20px rgba(0, 0, 0, 0.3)",
+            color: "white",
+            alignItems: "center",
+          }}
+        >
+          <Typography
+            sx={{
+              pr: "2px",
+            }}
+          >
+            Cerrar
+          </Typography>
+          <CloseIcon sx={{ color: theme.palette.error.light }} />
         </IconButton>
       </Box>
 

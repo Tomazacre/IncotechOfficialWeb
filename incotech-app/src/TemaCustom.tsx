@@ -19,6 +19,10 @@ const theme = createTheme({
       100: "#E5E7EB", // antes solidDisabledBg
       400: "#9CA3AF", // antes solidDisabledColor
     },
+
+    error: {
+      main: "#e53935",
+    },
   },
 
   shape: {
