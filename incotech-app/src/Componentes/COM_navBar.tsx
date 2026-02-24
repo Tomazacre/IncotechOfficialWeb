@@ -1,22 +1,24 @@
-// //////////////////////////////////////////////
-// //                                          //
-// //   █     █░▓█████   ██████        ██ ▄█▀  //
-// //  ▓█░ █ ░█░▓█   ▀ ▒██    ▒        ██▄█▒   //
-// //  ▒█░ █ ░█ ▒███   ░ ▓██▄    ████  ███▄░   //
-// //  ░█░ █ ░█ ▒▓█  ▄   ▒   ██▒ ▓ ▓▓ ▓██ █▄   //
-// //  ░░██▒██▓ ░▒████▒▒██████▒▒ ▒▒ ▒ ▒██▒ █▄  //
-// //  ░ ▓░▒ ▒  ░░ ▒░ ░▒ ▒▓▒ ▒ ░  ░ ░ ▒ ▒▒ ▓▒  //
-// //    ▒ ░ ░   ░ ░  ░░ ░▒  ░ ░      ░ ░▒ ▒░  //
-// //    ░   ░     ░   ░  ░  ░        ░ ░░ ░   //
-// //      ░       ░  ░      ░        ░  ░     //
-// //                                          //
-// //////////////////////////////////////////////
+//////////////////////////////////////////////
+//               Created By:                //
+//  ░█     █░▓█████   ██████        ██ ▄█▀  //
+//  ▓█░ █ ░█░▓█   ▀ ▒██    ▒        ██▄█▒   //
+//  ▒█░ █ ░█░▓███   ░ ▓██▄    ████  ███▄░   //
+//  ░█░ █ ░█ ▓█   ▄   ▒   ██▒ ▓ ▓▓ ▓██ █▄   //
+//  ░░██▒██░ ▓█████▒▒██████▒▒ ▒▒ ▒ ▒██▒ █▄  //
+//  ░ ▓░▒ ▒  ░░ ▒░ ░▒ ▒▓▒ ▒ ░  ░ ░ ▒ ▒▒ ▓▒  //
+//    ▒ ░ ░   ░ ░  ░░ ░▒  ░ ░      ░ ░▒ ▒░  //
+//    ░   ░     ░   ░  ░  ░        ░ ░░ ░   //
+//      ░       ░  ░      ░        ░  ░     //
+//                                          //
+//////////////////////////////////////////////
 
+// § imports a documentos y recursos
 //import React from "react";
 import { useState, useEffect } from "react";
 import logo from "../assets/IncotechLogo.png";
+// § imports a documentos y recursos
 
-// Componentes y hooks de Material UI
+// § Componentes y hooks de Material UI
 import {
   Container, // Limita el ancho y centra contenido
   AppBar, // Barra superior fija
@@ -34,13 +36,12 @@ import {
   useTheme, // Accede al tema de MUI
   alpha, // Hace colores con transparencia
 } from "@mui/material";
-
-//import MenuIcon from "@mui/icons-material/Menu"; // Ícono hamburguesa
 import MenuOpenRoundedIcon from "@mui/icons-material/MenuOpenRounded";
-import CloseIcon from "@mui/icons-material/Close"; // Ícono cerrar
-import { motion } from "framer-motion"; // Animaciones (opcional)
+import CloseIcon from "@mui/icons-material/Close";
+import { motion } from "framer-motion";
+// § Componentes y hooks de Material UI
 
-// Links del menú (se renderizan dinámicamente con map)
+// § Links del menú (se renderizan dinámicamente con map)
 const navLinks = [
   { title: "Inicio", href: "#products" },
   { title: "Servicios", href: "#features" },
@@ -48,27 +49,24 @@ const navLinks = [
   { title: "Radio", href: "#blog" },
   { title: "Contáctanos", href: "#blog" },
 ];
-// Links del menú (se renderizan dinámicamente con map)
+// § Links del menú (se renderizan dinámicamente con map)
 
-//Componentes Animados con Framer Motion de MUI
+// § Componentes Animados con Framer Motion de MUI
 const MotionListItemButton = motion(ListItemButton as React.ComponentType<any>);
 const MotionButton = motion(Button);
 const MotionBox = motion(Box);
 const MotionAppBar = motion(AppBar);
-//Componentes Animados con Framer Motion de MUI
+// § Componentes Animados con Framer Motion de MUI
 
 const Navbar = () => {
+  // § Variables que se van a utilizar en el Componente
   const theme = useTheme(); // Obtiene el tema actual
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
-  // true si la pantalla es menor que "md"
+  const isMobile = useMediaQuery(theme.breakpoints.down("md")); // true si la pantalla es menor que "md"
+  const [mobileOpen, setMobileOpen] = useState(false); // Estado que controla si el menú móvil está abierto
+  const [scrolled, setScrolled] = useState(false); // Estado que controla si la navbar tiene blur (cuando haces scroll)
+  // § Variables que se van a utilizar en el Componente
 
-  // Estado que controla si el menú móvil está abierto
-  const [mobileOpen, setMobileOpen] = useState(false);
-
-  // Estado que controla si la navbar tiene blur (cuando haces scroll)
-  const [scrolled, setScrolled] = useState(false);
-
-  // Detecta scroll y activa el blur después de 20px
+  // § Effect que detecta scroll y activa el blur después de 20px
   useEffect(() => {
     const handleScroll = () => {
       const offset = window.scrollY; // Cuánto se ha bajado
@@ -77,16 +75,17 @@ const Navbar = () => {
 
     window.addEventListener("scroll", handleScroll);
 
-    // Limpieza del evento cuando el componente se desmonta
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll); // Limpieza del evento cuando el componente se desmonta
   }, []);
+  // § Effect que detecta scroll y activa el blur después de 20px
 
-  // Abre o cierra el Drawer móvil
+  // § Abre o cierra el Drawer móvil
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+  // § Abre o cierra el Drawer móvil
 
-  // Contenido del menú móvil
+  // § Inicia creacion de MenuSlide para Interaccion con Moviles
   const drawer = (
     <Box
       sx={{
@@ -97,7 +96,7 @@ const Navbar = () => {
         flexDirection: "column",
       }}
     >
-      {/* Botón cerrar */}
+      {/* § Inicia creacion de titulo Menu y Boton "Cerrar" en Moviles */}
       <Box
         sx={{
           display: "flex",
@@ -110,12 +109,12 @@ const Navbar = () => {
           sx={{
             color: "white",
             fontSize: 25,
+            textShadow: "0 4px 8px rgba(0, 0, 0, 1)",
           }}
         >
           Menu de Inicio
         </Typography>
 
-        {/* Botón cerrar */}
         <IconButton
           onClick={handleDrawerToggle}
           sx={{
@@ -126,6 +125,7 @@ const Navbar = () => {
             boxShadow: "0 4px 20px rgba(0, 0, 0, 0.3)",
             color: "white",
             alignItems: "center",
+            height: "80%",
           }}
         >
           <Typography
@@ -138,7 +138,9 @@ const Navbar = () => {
           <CloseIcon sx={{ color: theme.palette.error.light }} />
         </IconButton>
       </Box>
+      {/* § Termina creacion de titulo Menu y Boton "Cerrar" en Moviles */}
 
+      {/* § Inicia creacion de lista con links del Menu */}
       <List
         sx={{
           display: "flex",
@@ -146,7 +148,7 @@ const Navbar = () => {
           flexGrow: 1, // 🔥 clave
         }}
       >
-        {/* Renderiza links dinámicamente */}
+        {/* § Inicia carga de Links de Navegacion de Menu de Moviles */}
         {navLinks.map((item, index) => (
           <ListItem key={item.title} disablePadding>
             <MotionListItemButton
@@ -170,8 +172,6 @@ const Navbar = () => {
               }}
             >
               <ListItemText primary={item.title} />
-
-              {/* Línea animada */}
               <motion.span
                 variants={{
                   rest: { width: 0 },
@@ -196,8 +196,9 @@ const Navbar = () => {
             </MotionListItemButton>
           </ListItem>
         ))}
+        {/* § Termina carga de Links de Navegacion de Menu de Moviles */}
 
-        {/* Botón principal en móvil */}
+        {/* § Inicia Boton "Incotech Tienda" en PC */}
         <ListItem disablePadding sx={{ justifyContent: "center" }}>
           <MotionBox
             initial={{ opacity: 0, x: 50, scale: 0.95 }}
@@ -287,7 +288,9 @@ const Navbar = () => {
             </ListItemButton>
           </MotionBox>
         </ListItem>
+        {/* § Termina Boton "Incotech Tienda" en PC */}
 
+        {/* § Inicia Setteo de Logo y nombre en Menu Moviles */}
         <ListItem
           sx={{
             mt: "auto",
@@ -334,14 +337,17 @@ const Navbar = () => {
             </Typography>
           </MotionBox>
         </ListItem>
+        {/* § Termina Setteo de Logo y nombre en Menu Moviles */}
       </List>
+      {/* § Inicia creacion de lista con links del Menu */}
     </Box>
   );
+  // § Termina creacion de MenuSlide para Interaccion con Moviles
 
-  //Este return es el que manda la vista ya creada
+  // § Inicia Return de la visualizacion de los componentes
   return (
     <>
-      {/* Barra superior fija */}
+      {/* § Inicia Esqueleto y NavBar De PC */}
       <MotionAppBar
         position="fixed"
         color="transparent"
@@ -367,6 +373,7 @@ const Navbar = () => {
           WebkitBackdropFilter: scrolled ? "blur(7px)" : "blur(0px)", // soporte Safari
         }}
       >
+        {/* Container de contencion de paddings a los lados */}
         <Container maxWidth="lg">
           <Toolbar
             sx={{
@@ -380,7 +387,7 @@ const Navbar = () => {
               alignItems: "center",
             }}
           >
-            {/* Logo */}
+            {/* § Inicia Setteo de Logo y nombre en Menu PC */}
             <Box
               sx={{
                 display: "flex",
@@ -414,8 +421,9 @@ const Navbar = () => {
                 Incotech
               </Typography>
             </Box>
+            {/* § Termina Setteo de Logo y nombre en Menu PC */}
 
-            {/* Links centro */}
+            {/* § Inicia carga de Links de Navegacion de Menu PC */}
             {!isMobile && (
               <Box
                 sx={{
@@ -473,8 +481,9 @@ const Navbar = () => {
                 ))}
               </Box>
             )}
+            {/* § Termina carga de Links de Navegacion de Menu PC */}
 
-            {/* Boton "Incotech Tienda" Derecha */}
+            {/* § Inicia Boton "Incotech Tienda" en PC */}
             <Box
               sx={{
                 display: "flex",
@@ -555,8 +564,9 @@ const Navbar = () => {
                   Incotech Tienda
                 </Button>
               )}
+              {/* § Termina Boton "Incotech Tienda" en PC */}
 
-              {/* Boton para abrir menu en Telefono */}
+              {/* § Inicia Boton para abrir menu en Moviles */}
               {isMobile && (
                 <IconButton
                   onClick={handleDrawerToggle}
@@ -570,12 +580,14 @@ const Navbar = () => {
                   <MenuOpenRoundedIcon sx={{ transform: "scale(1.6)" }} />
                 </IconButton>
               )}
+              {/* § Termina Boton para abrir menu en Moviles */}
             </Box>
           </Toolbar>
         </Container>
       </MotionAppBar>
+      {/* § Termina Esqueleto y NavBar De PC */}
 
-      {/* Drawer */}
+      {/* § Inicia Drawer del Menu de Moviles*/}
       <Drawer
         anchor="right"
         open={mobileOpen}
@@ -598,6 +610,7 @@ const Navbar = () => {
       >
         {drawer}
       </Drawer>
+      {/* § Termina Drawer del Menu de Moviles*/}
 
       {/* Espaciador */}
       <Toolbar sx={{ minHeight: { xs: 70, md: 80 } }} />
