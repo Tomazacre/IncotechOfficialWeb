@@ -1,3 +1,17 @@
+// //////////////////////////////////////////////
+// //                                          //
+// //   █     █░▓█████   ██████        ██ ▄█▀  //
+// //  ▓█░ █ ░█░▓█   ▀ ▒██    ▒        ██▄█▒   //
+// //  ▒█░ █ ░█ ▒███   ░ ▓██▄    ████  ███▄░   //
+// //  ░█░ █ ░█ ▒▓█  ▄   ▒   ██▒ ▓ ▓▓ ▓██ █▄   //
+// //  ░░██▒██▓ ░▒████▒▒██████▒▒ ▒▒ ▒ ▒██▒ █▄  //
+// //  ░ ▓░▒ ▒  ░░ ▒░ ░▒ ▒▓▒ ▒ ░  ░ ░ ▒ ▒▒ ▓▒  //
+// //    ▒ ░ ░   ░ ░  ░░ ░▒  ░ ░      ░ ░▒ ▒░  //
+// //    ░   ░     ░   ░  ░  ░        ░ ░░ ░   //
+// //      ░       ░  ░      ░        ░  ░     //
+// //                                          //
+// //////////////////////////////////////////////
+
 //import React from "react";
 import { useState, useEffect } from "react";
 import logo from "../assets/IncotechLogo.png";
@@ -34,11 +48,14 @@ const navLinks = [
   { title: "Radio", href: "#blog" },
   { title: "Contáctanos", href: "#blog" },
 ];
+// Links del menú (se renderizan dinámicamente con map)
 
-//Botones Animados con Framer Motion de MUI
+//Componentes Animados con Framer Motion de MUI
 const MotionListItemButton = motion(ListItemButton as React.ComponentType<any>);
 const MotionButton = motion(Button);
 const MotionBox = motion(Box);
+const MotionAppBar = motion(AppBar);
+//Componentes Animados con Framer Motion de MUI
 
 const Navbar = () => {
   const theme = useTheme(); // Obtiene el tema actual
@@ -71,7 +88,15 @@ const Navbar = () => {
 
   // Contenido del menú móvil
   const drawer = (
-    <Box sx={{ textAlign: "center", pt: 2 }}>
+    <Box
+      sx={{
+        textAlign: "center",
+        pt: 2,
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
       {/* Botón cerrar */}
       <Box sx={{ display: "flex", justifyContent: "flex-end", px: 2 }}>
         <IconButton onClick={handleDrawerToggle}>
@@ -79,7 +104,13 @@ const Navbar = () => {
         </IconButton>
       </Box>
 
-      <List>
+      <List
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          flexGrow: 1, // 🔥 clave
+        }}
+      >
         {/* Renderiza links dinámicamente */}
         {navLinks.map((item, index) => (
           <ListItem key={item.title} disablePadding>
@@ -91,14 +122,14 @@ const Navbar = () => {
               animate={{ opacity: 1, x: 0 }}
               transition={{
                 duration: 0.5,
-                delay: index * 0.1, // 👈 efecto escalonado
+                delay: index * 0.2, // 👈 efecto escalonado
                 ease: "easeOut",
               }}
               whileHover={{ scale: 1.03 }}
               sx={{
                 position: "relative",
                 textAlign: "center",
-                color: theme.palette.primary.dark,
+                color: theme.palette.primary.light,
                 overflow: "hidden",
                 fontWeight: "bold",
               }}
@@ -222,7 +253,13 @@ const Navbar = () => {
           </MotionBox>
         </ListItem>
 
-        <ListItem sx={{}}>
+        <ListItem
+          sx={{
+            mt: "auto",
+            justifyContent: "center",
+            pb: 1,
+          }}
+        >
           <MotionBox
             initial={{ opacity: 0, y: 30, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -266,23 +303,33 @@ const Navbar = () => {
     </Box>
   );
 
-  {
-    /* Este return es el que manda la vista ya creada*/
-  }
+  //Este return es el que manda la vista ya creada
   return (
     <>
       {/* Barra superior fija */}
-      <AppBar
+      <MotionAppBar
         position="fixed"
         color="transparent"
         elevation={0}
-        sx={{
-          transition: "all 0.4s ease",
-          backdropFilter: scrolled ? "blur(7px)" : "none",
+        initial={false} // 🔥 importante cuando depende de estado
+        animate={{
+          backdropFilter: scrolled ? "blur(5px)" : "blur(0px)",
           backgroundColor: scrolled
-            ? alpha(theme.palette.background.default, 0)
-            : "transparent",
-          boxShadow: scrolled ? "0 4px 30px rgba(0,0,0,0.08)" : "none",
+            ? "rgba(255,255,255,0.1)"
+            : "rgba(255,255,255,0)",
+          boxShadow: scrolled
+            ? "0 4px 30px rgba(0,0,0,0.08)"
+            : "0 0px 0px rgba(0,0,0,0)",
+        }}
+        transition={{
+          duration: 0.4,
+          ease: "easeOut",
+          type: "spring",
+          stiffness: 120,
+          damping: 20,
+        }}
+        sx={{
+          WebkitBackdropFilter: scrolled ? "blur(7px)" : "blur(0px)", // soporte Safari
         }}
       >
         <Container maxWidth="lg">
@@ -474,6 +521,7 @@ const Navbar = () => {
                 </Button>
               )}
 
+              {/* Boton para abrir menu en Telefono */}
               {isMobile && (
                 <IconButton
                   onClick={handleDrawerToggle}
@@ -490,20 +538,26 @@ const Navbar = () => {
             </Box>
           </Toolbar>
         </Container>
-      </AppBar>
+      </MotionAppBar>
 
       {/* Drawer */}
       <Drawer
         anchor="right"
         open={mobileOpen}
         onClose={handleDrawerToggle}
-        sx={{
-          "& .MuiDrawer-paper": {
-            width: 200,
-            backdropFilter: "blur(4px)",
-            WebkitBackdropFilter: "blur(4px)",
-            backgroundColor: "rgba(224, 231, 255, 0.5)",
-            borderLeft: "1px solid rgba(255,255,255,0.08)",
+        slotProps={{
+          paper: {
+            sx: {
+              width: { xs: "90%", sm: "50%", md: "30%" },
+              height: "90vh",
+              top: "5vh",
+              right: 20,
+              borderRadius: "24px",
+              backdropFilter: "blur(10px)",
+              backgroundColor: "rgba(255,255,255,0.2)",
+              boxShadow: "0 20px 60px rgba(0,0,0,0.25)",
+              overflow: "hidden",
+            },
           },
         }}
       >
