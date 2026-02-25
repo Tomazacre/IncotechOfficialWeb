@@ -39,7 +39,7 @@ import {
 import MenuOpenRoundedIcon from "@mui/icons-material/MenuOpenRounded";
 import CloseIcon from "@mui/icons-material/Close";
 import { motion } from "framer-motion";
-import { yellow } from "@mui/material/colors";
+import { blueGrey, yellow } from "@mui/material/colors";
 // § Componentes y hooks de Material UI
 
 // § Links del menú (se renderizan dinámicamente con map)
@@ -58,6 +58,8 @@ const MotionButton = motion(Button);
 const MotionBox = motion(Box);
 const MotionAppBar = motion(AppBar);
 const MotionMenuOpen = motion(MenuOpenRoundedIcon);
+const MotionTypography = motion(Typography);
+const MotionIconButton = motion(IconButton);
 // § Componentes Animados con Framer Motion de MUI
 
 const Navbar = () => {
@@ -92,48 +94,80 @@ const Navbar = () => {
     <Box
       sx={{
         textAlign: "center",
-        pt: 2,
         height: "100%",
         display: "flex",
         flexDirection: "column",
         position: "relative",
       }}
     >
+      {/* § Inicia boxs de elementos visuales arriba y abajo en menu de Moviles */}
       <Box
         sx={{
           position: "absolute",
           background: "linear-gradient(180deg, white, black)",
           width: "100%",
-          height: 110,
+          height: 86,
           opacity: 0.1,
-          borderTopLeftRadius: 500,
-          borderTopRightRadius: 500,
+          borderTopLeftRadius: 50,
+          borderTopRightRadius: 50,
           bottom: -30,
           border: "1px solid",
           borderColor: "rgba(255, 255, 255, 0.9)",
           boxShadow: "0 4px 50px rgba(0, 0, 0, 0.9)",
         }}
-      ></Box>
+      />
+
+      <Box
+        sx={{
+          position: "absolute",
+          background: "linear-gradient(360deg, white, black)",
+          width: "100%",
+          height: 75,
+          opacity: 0.1,
+          borderBottomLeftRadius: 50,
+          borderBottomRightRadius: 50,
+          top: -30,
+          border: "1px solid",
+          borderColor: "rgba(255, 255, 255, 0.9)",
+          boxShadow: "0 4px 50px rgba(0, 0, 0, 0.9)",
+        }}
+      />
+      {/* § Termina boxs de elementos visuales arriba y abajo en menu de Moviles */}
+
       {/* § Inicia creacion de titulo Menu y Boton "Cerrar" en Moviles */}
       <Box
         sx={{
           display: "flex",
-          px: 2,
           alignItems: "center",
           justifyContent: "space-between",
         }}
       >
-        <Typography
+        <MotionTypography
+          initial={{ opacity: 0, y: -30, scale: 0.95 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{
+            duration: 0.6,
+            ease: "easeOut",
+            delay: 0.5,
+          }}
           sx={{
             color: "white",
-            fontSize: 25,
+            fontSize: 20,
             textShadow: "0 4px 8px rgba(0, 0, 0, 1)",
+            ml: "30%",
           }}
         >
           Menu de Inicio
-        </Typography>
+        </MotionTypography>
 
-        <IconButton
+        <MotionIconButton
+          initial={{ opacity: 0, y: -30, scale: 0.95 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{
+            duration: 0.6,
+            ease: "easeOut",
+            delay: 0.8,
+          }}
           onClick={handleDrawerToggle}
           sx={{
             justifyContent: "center",
@@ -143,18 +177,13 @@ const Navbar = () => {
             boxShadow: "0 4px 20px rgba(0, 0, 0, 0.3)",
             color: "white",
             alignItems: "center",
-            height: "80%",
+            height: "60%",
+            width: "7.5%",
+            right: "10%",
           }}
         >
-          <Typography
-            sx={{
-              pr: "2px",
-            }}
-          >
-            Cerrar
-          </Typography>
           <CloseIcon sx={{ color: theme.palette.error.light }} />
-        </IconButton>
+        </MotionIconButton>
       </Box>
       {/* § Termina creacion de titulo Menu y Boton "Cerrar" en Moviles */}
 
@@ -173,7 +202,9 @@ const Navbar = () => {
             key={item.title}
             disablePadding
             sx={{
-              width: "70%",
+              width: "80%",
+              top: "1%",
+              height: 75,
             }}
           >
             <MotionListItemButton
@@ -212,12 +243,12 @@ const Navbar = () => {
         <ListItem
           disablePadding
           sx={{
-            width: "70%",
-            mt: "20%",
+            width: "80%",
+            top: "1%",
+            height: 75,
           }}
         >
-          <MotionBox
-            sx={{ width: "100%" }}
+          <MotionButton
             initial={{
               opacity: 0,
               x: 50,
@@ -229,85 +260,39 @@ const Navbar = () => {
               ease: "easeOut",
               delay: 0.5,
             }}
+            fullWidth
+            href="#signup"
+            onClick={handleDrawerToggle}
+            sx={{
+              cursor: "pointer",
+              position: "relative",
+              background: "linear-gradient(50deg, #2b4acb 15%, #58d1c9 95%)",
+              textAlign: "center",
+              color: theme.palette.primary.light,
+              overflow: "hidden",
+              justifyContent: "center",
+              borderRadius: "20px",
+              borderColor: "rgba(255, 255, 255, 0.1)",
+              boxShadow: "0 4px 20px rgba(0, 0, 0, 0.3)",
+              alignItems: "center",
+              height: "70%",
+            }}
           >
-            <Button
-              fullWidth
-              component="a"
-              href="#signup"
-              onClick={handleDrawerToggle}
-              sx={{
-                borderRadius: 50,
-                border: "none",
-                outline: "none",
-                color: "#fff",
-                cursor: "pointer",
-                position: "relative",
-                background: "linear-gradient(50deg, #2b4acb 15%, #58d1c9 95%)",
-                boxShadow: "0 4px 20px rgba(99, 102, 241, 0.25)",
-
-                "&::before": {
-                  content: '""',
-                  background: "linear-gradient(50deg, #2b4acb , #58d1c9)",
-                  position: "absolute",
-                  top: -2,
-                  left: -2,
-                  backgroundSize: "400%",
-                  zIndex: -1,
-                  filter: "blur(5px)",
-                  width: "calc(100% + 4px)",
-                  height: "calc(100% + 4px)",
-                  animation: "glowing 2s linear infinite",
-                  opacity: 0,
-                  transition: "opacity .3s ease-in-out",
-                  borderRadius: 50,
-                },
-
-                "&:hover::before": {
-                  opacity: 1,
-                },
-
-                "&:active": {
-                  color: "#000",
-                },
-
-                "&:active::after": {
-                  background: "transparent",
-                },
-
-                "&::after": {
-                  zIndex: -1,
-                  content: '""',
-                  position: "absolute",
-                  height: "100%",
-                  background:
-                    "linear-gradient(50deg, #2b4acb 15%, #58d1c9 95%)",
-                  left: 0,
-                  top: 0,
-                  borderRadius: 50,
-                },
-
-                "@keyframes glowing": {
-                  "0%": { backgroundPosition: "0 0" },
-                  "20%": { backgroundPosition: "25% 0" },
-                  "40%": { backgroundPosition: "50% 0" },
-                  "60%": { backgroundPosition: "75% 0" },
-                  "80%": { backgroundPosition: "100% 0" },
-                  "100%": { backgroundPosition: "0% 0" },
-                },
-              }}
-            >
-              Incotech Tienda
-            </Button>
-          </MotionBox>
+            Incotech Tienda
+          </MotionButton>
         </ListItem>
         {/* § Termina Boton "Incotech Tienda" en Moviles */}
 
         {/* § Inicia Setteo de Logo y nombre en Menu Moviles */}
         <ListItem
           sx={{
-            mt: "auto",
-            justifyContent: "center",
+            position: "absolute",
             pb: 1,
+            bottom: -4,
+            left: 0,
+            right: 0,
+            display: "flex",
+            justifyContent: "center",
           }}
         >
           <MotionBox
@@ -592,21 +577,9 @@ const Navbar = () => {
                   }}
                 >
                   <MotionMenuOpen
-                    initial="rest"
-                    whileHover="hover"
-                    animate={{ backgroundColor: "yellowgreen" }}
-                    transition={{ duration: 1 }}
                     sx={{
                       transform: "scale(1.6)",
                       color: theme.palette.primary.dark,
-                    }}
-                    variants={{
-                      rest: {
-                        scale: 1.6,
-                      },
-                      hover: {
-                        backgroundColor: "yellowgreen",
-                      },
                     }}
                   />
                 </IconButton>
