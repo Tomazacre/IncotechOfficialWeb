@@ -39,6 +39,7 @@ import {
 import MenuOpenRoundedIcon from "@mui/icons-material/MenuOpenRounded";
 import CloseIcon from "@mui/icons-material/Close";
 import { motion } from "framer-motion";
+import { yellow } from "@mui/material/colors";
 // § Componentes y hooks de Material UI
 
 // § Links del menú (se renderizan dinámicamente con map)
@@ -56,6 +57,7 @@ const MotionListItemButton = motion(ListItemButton as React.ComponentType<any>);
 const MotionButton = motion(Button);
 const MotionBox = motion(Box);
 const MotionAppBar = motion(AppBar);
+const MotionMenuOpen = motion(MenuOpenRoundedIcon);
 // § Componentes Animados con Framer Motion de MUI
 
 const Navbar = () => {
@@ -94,8 +96,24 @@ const Navbar = () => {
         height: "100%",
         display: "flex",
         flexDirection: "column",
+        position: "relative",
       }}
     >
+      <Box
+        sx={{
+          position: "absolute",
+          background: "linear-gradient(180deg, white, black)",
+          width: "100%",
+          height: 110,
+          opacity: 0.1,
+          borderTopLeftRadius: 500,
+          borderTopRightRadius: 500,
+          bottom: -30,
+          border: "1px solid",
+          borderColor: "rgba(255, 255, 255, 0.9)",
+          boxShadow: "0 4px 50px rgba(0, 0, 0, 0.9)",
+        }}
+      ></Box>
       {/* § Inicia creacion de titulo Menu y Boton "Cerrar" en Moviles */}
       <Box
         sx={{
@@ -146,11 +164,18 @@ const Navbar = () => {
           display: "flex",
           flexDirection: "column",
           flexGrow: 1, // 🔥 clave
+          alignItems: "center",
         }}
       >
         {/* § Inicia carga de Links de Navegacion de Menu de Moviles */}
         {navLinks.map((item, index) => (
-          <ListItem key={item.title} disablePadding>
+          <ListItem
+            key={item.title}
+            disablePadding
+            sx={{
+              width: "70%",
+            }}
+          >
             <MotionListItemButton
               component="a"
               href={item.href}
@@ -158,50 +183,46 @@ const Navbar = () => {
               initial={{ opacity: 0, x: 80 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{
-                duration: 0.5,
+                duration: 0.1,
                 delay: index * 0.2, // 👈 efecto escalonado
                 ease: "easeOut",
               }}
-              whileHover={{ scale: 1.03 }}
+              whileHover={{ scale: 1.1 }}
               sx={{
                 position: "relative",
                 textAlign: "center",
                 color: theme.palette.primary.light,
                 overflow: "hidden",
-                fontWeight: "bold",
+                justifyContent: "center",
+                borderRadius: "20px",
+                border: "1px solid",
+                borderColor: "rgba(255, 255, 255, 0.1)",
+                boxShadow: "0 4px 20px rgba(0, 0, 0, 0.3)",
+                alignItems: "center",
+                height: "70%",
               }}
             >
               <ListItemText primary={item.title} />
-              <motion.span
-                variants={{
-                  rest: { width: 0 },
-                  hover: { width: "30%" },
-                }}
-                transition={{
-                  duration: 0.35,
-                  ease: [0.4, 0, 0.2, 1],
-                }}
-                style={{
-                  position: "absolute",
-                  height: "2px",
-                  bottom: "6px",
-                  left: "50%",
-                  transform: "translateX(-50%)",
-                  background:
-                    "linear-gradient(50deg, #2b4acb 15%, #58d1c9 95%)",
-                  pointerEvents: "none",
-                  borderRadius: 2,
-                }}
-              />
             </MotionListItemButton>
           </ListItem>
         ))}
         {/* § Termina carga de Links de Navegacion de Menu de Moviles */}
 
-        {/* § Inicia Boton "Incotech Tienda" en PC */}
-        <ListItem disablePadding sx={{ justifyContent: "center" }}>
+        {/* § Inicia Boton "Incotech Tienda" en Moviles */}
+        <ListItem
+          disablePadding
+          sx={{
+            width: "70%",
+            mt: "20%",
+          }}
+        >
           <MotionBox
-            initial={{ opacity: 0, x: 50, scale: 0.95 }}
+            sx={{ width: "100%" }}
+            initial={{
+              opacity: 0,
+              x: 50,
+              scale: 0.95,
+            }}
             animate={{ opacity: 1, x: 0, scale: 1 }}
             transition={{
               duration: 0.6,
@@ -209,86 +230,77 @@ const Navbar = () => {
               delay: 0.5,
             }}
           >
-            <ListItemButton
-              sx={{ textAlign: "center", mt: 2 }}
+            <Button
+              fullWidth
               component="a"
               href="#signup"
               onClick={handleDrawerToggle}
-            >
-              <Button
-                variant="contained"
-                color="primary"
-                fullWidth
-                sx={{
+              sx={{
+                borderRadius: 50,
+                border: "none",
+                outline: "none",
+                color: "#fff",
+                cursor: "pointer",
+                position: "relative",
+                background: "linear-gradient(50deg, #2b4acb 15%, #58d1c9 95%)",
+                boxShadow: "0 4px 20px rgba(99, 102, 241, 0.25)",
+
+                "&::before": {
+                  content: '""',
+                  background: "linear-gradient(50deg, #2b4acb , #58d1c9)",
+                  position: "absolute",
+                  top: -2,
+                  left: -2,
+                  backgroundSize: "400%",
+                  zIndex: -1,
+                  filter: "blur(5px)",
+                  width: "calc(100% + 4px)",
+                  height: "calc(100% + 4px)",
+                  animation: "glowing 2s linear infinite",
+                  opacity: 0,
+                  transition: "opacity .3s ease-in-out",
                   borderRadius: 50,
-                  border: "none",
-                  outline: "none",
-                  color: "#fff",
-                  cursor: "pointer",
-                  position: "relative",
-                  zIndex: 0,
+                },
+
+                "&:hover::before": {
+                  opacity: 1,
+                },
+
+                "&:active": {
+                  color: "#000",
+                },
+
+                "&:active::after": {
+                  background: "transparent",
+                },
+
+                "&::after": {
+                  zIndex: -1,
+                  content: '""',
+                  position: "absolute",
+                  height: "100%",
                   background:
                     "linear-gradient(50deg, #2b4acb 15%, #58d1c9 95%)",
-                  boxShadow: "0 4px 20px rgba(99, 102, 241, 0.25)",
+                  left: 0,
+                  top: 0,
+                  borderRadius: 50,
+                },
 
-                  "&::before": {
-                    content: '""',
-                    background: "linear-gradient(50deg, #2b4acb , white)",
-                    position: "absolute",
-                    top: -2,
-                    left: -2,
-                    backgroundSize: "400%",
-                    zIndex: -1,
-                    filter: "blur(5px)",
-                    width: "calc(100% + 4px)",
-                    height: "calc(100% + 4px)",
-                    animation: "glowing 2s linear infinite",
-                    opacity: 0,
-                    transition: "opacity .3s ease-in-out",
-                    borderRadius: 50,
-                  },
-
-                  "&:hover::before": {
-                    opacity: 1,
-                  },
-
-                  "&:active": {
-                    color: "#000",
-                  },
-
-                  "&:active::after": {
-                    background: "transparent",
-                  },
-
-                  "&::after": {
-                    zIndex: -1,
-                    content: '""',
-                    position: "absolute",
-                    width: "100%",
-                    height: "100%",
-                    background:
-                      "linear-gradient(50deg, #2b4acb 15%, #58d1c9 95%)",
-                    left: 0,
-                    top: 0,
-                    borderRadius: 50,
-                  },
-
-                  "@keyframes glowing": {
-                    "0%": { backgroundPosition: "0 0" },
-                    "20%": { backgroundPosition: "25% 0" },
-                    "40%": { backgroundPosition: "50% 0" },
-                    "60%": { backgroundPosition: "75% 0" },
-                    "80%": { backgroundPosition: "100% 0" },
-                    "100%": { backgroundPosition: "0% 0" },
-                  },
-                }}
-              >
-                Incotech Tienda
-              </Button>
-            </ListItemButton>
+                "@keyframes glowing": {
+                  "0%": { backgroundPosition: "0 0" },
+                  "20%": { backgroundPosition: "25% 0" },
+                  "40%": { backgroundPosition: "50% 0" },
+                  "60%": { backgroundPosition: "75% 0" },
+                  "80%": { backgroundPosition: "100% 0" },
+                  "100%": { backgroundPosition: "0% 0" },
+                },
+              }}
+            >
+              Incotech Tienda
+            </Button>
           </MotionBox>
         </ListItem>
-        {/* § Termina Boton "Incotech Tienda" en PC */}
+        {/* § Termina Boton "Incotech Tienda" en Moviles */}
 
         {/* § Inicia Setteo de Logo y nombre en Menu Moviles */}
         <ListItem
@@ -373,7 +385,7 @@ const Navbar = () => {
           WebkitBackdropFilter: scrolled ? "blur(7px)" : "blur(0px)", // soporte Safari
         }}
       >
-        {/* Container de contencion de paddings a los lados */}
+        {/* § Inicia Container de contencion de paddings a los lados */}
         <Container maxWidth="lg">
           <Toolbar
             sx={{
@@ -396,6 +408,7 @@ const Navbar = () => {
                 gap: 1,
               }}
             >
+              {/* Imagen */}
               <Box
                 component="img"
                 src={logo}
@@ -406,6 +419,7 @@ const Navbar = () => {
                   objectFit: "contain",
                 }}
               />
+              {/* Texto */}
               <Typography
                 variant="h5"
                 component="div"
@@ -577,13 +591,32 @@ const Navbar = () => {
                     color: "white",
                   }}
                 >
-                  <MenuOpenRoundedIcon sx={{ transform: "scale(1.6)" }} />
+                  <MotionMenuOpen
+                    initial="rest"
+                    whileHover="hover"
+                    animate={{ backgroundColor: "yellowgreen" }}
+                    transition={{ duration: 1 }}
+                    sx={{
+                      transform: "scale(1.6)",
+                      color: theme.palette.primary.dark,
+                    }}
+                    variants={{
+                      rest: {
+                        scale: 1.6,
+                      },
+                      hover: {
+                        backgroundColor: "yellowgreen",
+                      },
+                    }}
+                  />
                 </IconButton>
               )}
               {/* § Termina Boton para abrir menu en Moviles */}
             </Box>
+            {/* § Termina Boton "Incotech Tienda" en PC */}
           </Toolbar>
         </Container>
+        {/* § Termina Container de contencion de paddings a los lados */}
       </MotionAppBar>
       {/* § Termina Esqueleto y NavBar De PC */}
 
