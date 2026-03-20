@@ -439,11 +439,8 @@ const Navbar = () => {
                     variants={{
                       rest: { scale: 1, color: "#2b3aa3" },
                       hover: {
-                        scale: 1.12,
+                        scale: 1.1,
                         color: theme.palette.primary.light,
-                        backdropFilter: "blur(10px)",
-                        //WebkitBackdropFilter: "blur(10px)", // 👈 soporte Safari
-                        backgroundColor: "rgba(51, 72, 199, 0.1)",
                       },
                     }}
                     transition={{ duration: 0.5 }}
