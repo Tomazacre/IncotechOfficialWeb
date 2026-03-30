@@ -39,7 +39,6 @@ import {
 import MenuOpenRoundedIcon from '@mui/icons-material/MenuOpenRounded';
 import CloseIcon from '@mui/icons-material/Close';
 import { motion } from 'framer-motion';
-import { blueGrey, red, yellow } from '@mui/material/colors';
 //~ § Componentes y hooks de Material UI
 
 //~ § Links del menú (se renderizan dinámicamente con map)
