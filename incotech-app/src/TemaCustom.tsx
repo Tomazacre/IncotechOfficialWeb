@@ -12,30 +12,57 @@
 //                                          //
 //////////////////////////////////////////////
 
-import { createTheme } from "@mui/material/styles";
-import Jakarta from "./assets/fonts/PlusJakarta.ttf";
+import { createTheme, ThemeOptions } from '@mui/material/styles';
+import { PaletteOptions } from '@mui/material/styles';
+import Jakarta from './assets/fonts/PlusJakarta.ttf';
+
+declare module '@mui/material/styles' {
+  interface Palette {
+    utiles: {
+      azulClaro: string;
+      azulMasClaro: string;
+      azulProfundo: string;
+      azulHover: string;
+    };
+  }
+  interface PaletteOptions {
+    utiles?: {
+      azulClaro: string;
+      azulMasClaro: string;
+      azulProfundo: string;
+      azulHover: string;
+    };
+  }
+}
 
 const theme = createTheme({
   typography: {
-    fontFamily: "Jakarta, Arial, sans-serif",
+    fontFamily: 'Jakarta, Arial, sans-serif',
   },
   palette: {
-    mode: "light",
+    mode: 'light',
 
     primary: {
-      light: "#DBE9FB", // antes 400
-      main: "#2B4ACB", // tu color principal real
-      dark: "#152C81", // antes solidActiveBg
-      contrastText: "#FFFFFF",
+      light: '#DBE9FB', // antes 400
+      main: '#2B4ACB', // tu color principal real
+      dark: '#152C81', // antes solidActiveBg
+      contrastText: '#FFFFFF',
+    },
+
+    utiles: {
+      azulClaro: '#4D69D6',
+      azulMasClaro: '#7089E0',
+      azulProfundo: '#0D1A6B',
+      azulHover: '#DDE2F7',
     },
 
     grey: {
-      100: "#E5E7EB", // antes solidDisabledBg
-      400: "#9CA3AF", // antes solidDisabledColor
+      100: '#E5E7EB', // antes solidDisabledBg
+      400: '#9CA3AF', // antes solidDisabledColor
     },
 
     error: {
-      main: "#e53935",
+      main: '#e53935',
     },
   },
 
@@ -59,17 +86,17 @@ const theme = createTheme({
     MuiButton: {
       styleOverrides: {
         root: {
-          textTransform: "none",
+          textTransform: 'none',
           fontWeight: 600,
         },
         containedPrimary: {
-          backgroundColor: "#2B4ACB",
-          "&:hover": {
-            backgroundColor: "#243FAF", // antes solidHoverBg
+          backgroundColor: '#2B4ACB',
+          '&:hover': {
+            backgroundColor: '#243FAF', // antes solidHoverBg
           },
-          "&.Mui-disabled": {
-            backgroundColor: "#E5E7EB",
-            color: "#9CA3AF",
+          '&.Mui-disabled': {
+            backgroundColor: '#E5E7EB',
+            color: '#9CA3AF',
           },
         },
       },

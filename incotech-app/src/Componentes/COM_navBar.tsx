@@ -1,24 +1,24 @@
-//////////////////////////////////////////////
-//               Created By:                //
-//  ░█     █░▓█████   ██████        ██ ▄█▀  //
-//  ▓█░ █ ░█░▓█   ▀ ▒██    ▒        ██▄█▒   //
-//  ▒█░ █ ░█░▓███   ░ ▓██▄    ████  ███▄░   //
-//  ░█░ █ ░█ ▓█   ▄   ▒   ██▒ ▓ ▓▓ ▓██ █▄   //
-//  ░░██▒██░ ▓█████▒▒██████▒▒ ▒▒ ▒ ▒██▒ █▄  //
-//  ░ ▓░▒ ▒  ░░ ▒░ ░▒ ▒▓▒ ▒ ░  ░ ░ ▒ ▒▒ ▓▒  //
-//    ▒ ░ ░   ░ ░  ░░ ░▒  ░ ░      ░ ░▒ ▒░  //
-//    ░   ░     ░   ░  ░  ░        ░ ░░ ░   //
-//      ░       ░  ░      ░        ░  ░     //
-//                                          //
-//////////////////////////////////////////////
+//! ///////////////////////////////////////////
+//!               Created By:                //
+//!  ░█     █░▓█████   ██████        ██ ▄█▀  //
+//!  ▓█░ █ ░█░▓█   ▀ ▒██    ▒        ██▄█▒   //
+//!  ▒█░ █ ░█░▓███   ░ ▓██▄    ████  ███▄░   //
+//!  ░█░ █ ░█ ▓█   ▄   ▒   ██▒ ▓ ▓▓ ▓██ █▄   //
+//!  ░░██▒██░ ▓█████▒▒██████▒▒ ▒▒ ▒ ▒██▒ █▄  //
+//!  ░ ▓░▒ ▒  ░░ ▒░ ░▒ ▒▓▒ ▒ ░  ░ ░ ▒ ▒▒ ▓▒  //
+//!    ▒ ░ ░   ░ ░  ░░ ░▒  ░ ░      ░ ░▒ ▒░  //
+//!    ░   ░     ░   ░  ░  ░        ░ ░░ ░   //
+//!      ░       ░  ░      ░        ░  ░     //
+//!                                          //
+//! ///////////////////////////////////////////
 
-// § imports a documentos y recursos
+//~ § imports a documentos y recursos
 //import React from "react";
-import { useState, useEffect } from "react";
-import logo from "../assets/IncotechLogo.png";
-// § imports a documentos y recursos
+import { useState, useEffect } from 'react';
+import logo from '../assets/IncotechLogo.png';
+//~ § imports a documentos y recursos
 
-// § Componentes y hooks de Material UI
+//~ § Componentes y hooks de Material UI
 import {
   Container, // Limita el ancho y centra contenido
   AppBar, // Barra superior fija
@@ -35,24 +35,24 @@ import {
   useMediaQuery, // Detecta tamaño de pantalla
   useTheme, // Accede al tema de MUI
   alpha, // Hace colores con transparencia
-} from "@mui/material";
-import MenuOpenRoundedIcon from "@mui/icons-material/MenuOpenRounded";
-import CloseIcon from "@mui/icons-material/Close";
-import { motion } from "framer-motion";
-import { blueGrey, yellow } from "@mui/material/colors";
-// § Componentes y hooks de Material UI
+} from '@mui/material';
+import MenuOpenRoundedIcon from '@mui/icons-material/MenuOpenRounded';
+import CloseIcon from '@mui/icons-material/Close';
+import { motion } from 'framer-motion';
+import { blueGrey, red, yellow } from '@mui/material/colors';
+//~ § Componentes y hooks de Material UI
 
-// § Links del menú (se renderizan dinámicamente con map)
+//~ § Links del menú (se renderizan dinámicamente con map)
 const navLinks = [
-  { title: "Inicio", href: "#products" },
-  { title: "Servicios", href: "#features" },
-  { title: "Productos", href: "#pricing" },
-  { title: "Radio", href: "#blog" },
-  { title: "Contáctanos", href: "#blog" },
+  { title: 'Inicio', href: '#products' },
+  { title: 'Servicios', href: '#features' },
+  { title: 'Productos', href: '#pricing' },
+  { title: 'Radio', href: '#blog' },
+  { title: 'Contáctanos', href: '#blog' },
 ];
-// § Links del menú (se renderizan dinámicamente con map)
+//~ § Links del menú (se renderizan dinámicamente con map)
 
-// § Componentes Animados con Framer Motion de MUI
+//~ § Componentes Animados con Framer Motion de MUI
 const MotionListItemButton = motion(ListItemButton as React.ComponentType<any>);
 const MotionButton = motion(Button);
 const MotionBox = motion(Box);
@@ -60,153 +60,157 @@ const MotionAppBar = motion(AppBar);
 const MotionMenuOpen = motion(MenuOpenRoundedIcon);
 const MotionTypography = motion(Typography);
 const MotionIconButton = motion(IconButton);
-// § Componentes Animados con Framer Motion de MUI
+//~ § Componentes Animados con Framer Motion de MUI
 
 const Navbar = () => {
-  // § Variables que se van a utilizar en el Componente
+  //~ § Variables que se van a utilizar en el Componente
   const theme = useTheme(); // Obtiene el tema actual
-  const isMobile = useMediaQuery(theme.breakpoints.down("md")); // true si la pantalla es menor que "md"
+  const isMobile = useMediaQuery(theme.breakpoints.down('md')); // true si la pantalla es menor que "md"
   const [mobileOpen, setMobileOpen] = useState(false); // Estado que controla si el menú móvil está abierto
   const [scrolled, setScrolled] = useState(false); // Estado que controla si la navbar tiene blur (cuando haces scroll)
-  // § Variables que se van a utilizar en el Componente
+  //~ § Variables que se van a utilizar en el Componente
 
-  // § Effect que detecta scroll y activa el blur después de 20px
+  //* § I Effect que detecta scroll y activa el blur después de 20px
   useEffect(() => {
     const handleScroll = () => {
       const offset = window.scrollY; // Cuánto se ha bajado
       setScrolled(offset > 20); // Activa blur si pasa 20px
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
 
-    return () => window.removeEventListener("scroll", handleScroll); // Limpieza del evento cuando el componente se desmonta
+    return () => window.removeEventListener('scroll', handleScroll); // Limpieza del evento cuando el componente se desmonta
   }, []);
-  // § Effect que detecta scroll y activa el blur después de 20px
+  //* § T Effect que detecta scroll y activa el blur después de 20px
 
-  // § Abre o cierra el Drawer móvil
+  //* § I Abre o cierra el Drawer móvil
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-  // § Abre o cierra el Drawer móvil
+  //* § T Abre o cierra el Drawer móvil
 
-  // § Inicia creacion de MenuSlide para Interaccion con Moviles
+  //! § I creacion de MenuSlide para Interaccion con Moviles
   const drawer = (
-    <Box
+    <Box // Box que contiene todo el drawer
       sx={{
-        textAlign: "center",
-        height: "100%",
-        display: "flex",
-        flexDirection: "column",
-        position: "relative",
+        textAlign: 'center',
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        position: 'relative',
+        backgroundColor: alpha(theme.palette.utiles.azulClaro, 0.3),
       }}
     >
-      {/* § Inicia boxs de elementos visuales arriba y abajo en menu de Moviles */}
+      {/* //* § I boxs de elementos visuales arriba y abajo en menu de Moviles */}
       <Box
         sx={{
-          position: "absolute",
-          background: "linear-gradient(180deg, white, black)",
-          width: "100%",
+          position: 'absolute',
+          width: '100%',
           height: 86,
           opacity: 0.1,
           borderTopLeftRadius: 50,
           borderTopRightRadius: 50,
           bottom: -30,
-          border: "1px solid",
-          borderColor: "rgba(255, 255, 255, 0.9)",
-          boxShadow: "0 4px 50px rgba(0, 0, 0, 0.9)",
+          border: '1px solid',
+          borderColor: alpha(theme.palette.utiles.azulProfundo, 1),
+          boxShadow: '0 4px 50px rgba(0, 0, 0, 0.9)',
         }}
       />
-
       <Box
         sx={{
-          position: "absolute",
-          background: "linear-gradient(360deg, white, black)",
-          width: "100%",
+          position: 'absolute',
+          width: '100%',
           height: 75,
           opacity: 0.1,
           borderBottomLeftRadius: 50,
           borderBottomRightRadius: 50,
           top: -30,
-          border: "1px solid",
-          borderColor: "rgba(255, 255, 255, 0.9)",
-          boxShadow: "0 4px 50px rgba(0, 0, 0, 0.9)",
+          border: '1px solid',
+          borderColor: alpha(theme.palette.utiles.azulProfundo, 1),
+          boxShadow: '0 4px 50px rgba(0, 0, 0, 0.9)',
         }}
       />
-      {/* § Termina boxs de elementos visuales arriba y abajo en menu de Moviles */}
+      {/* //* § T boxs de elementos visuales arriba y abajo en menu de Moviles */}
 
-      {/* § Inicia creacion de titulo Menu y Boton "Cerrar" en Moviles */}
+      {/* //^ § I creacion de titulo Menu y Boton "Cerrar" en Moviles */}
       <Box
         sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
         }}
       >
+        {/* //+ Titulo */}
         <MotionTypography
           initial={{ opacity: 0, y: -30, scale: 0.95 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{
             duration: 0.6,
-            ease: "easeOut",
+            ease: 'easeOut',
             delay: 0.5,
           }}
           sx={{
-            color: "white",
+            color: 'white',
             fontSize: 20,
-            textShadow: "0 4px 8px rgba(0, 0, 0, 1)",
-            ml: "30%",
+            textShadow: '0 4px 8px rgba(0, 0, 0, 0.5)',
+            ml: '30%',
           }}
         >
           Menu de Inicio
         </MotionTypography>
+        {/* //+ Titulo */}
 
+        {/* //- Icono */}
         <MotionIconButton
           initial={{ opacity: 0, y: -30, scale: 0.95 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{
             duration: 0.6,
-            ease: "easeOut",
+            ease: 'easeOut',
             delay: 0.8,
           }}
           onClick={handleDrawerToggle}
           sx={{
-            justifyContent: "center",
-            borderRadius: "20px",
-            border: "1px solid",
-            borderColor: "rgba(255, 255, 255, 0.1)",
-            boxShadow: "0 4px 20px rgba(0, 0, 0, 0.3)",
-            color: "white",
-            alignItems: "center",
-            height: "60%",
-            width: "7.5%",
-            right: "10%",
+            justifyContent: 'center',
+            borderRadius: '20px',
+            border: '1px solid',
+            borderColor: alpha(theme.palette.utiles.azulProfundo, 0.1),
+            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.2)',
+            color: 'white',
+            alignItems: 'center',
+            height: '60%',
+            width: '7.5%',
+            right: '10%',
           }}
         >
           <CloseIcon sx={{ color: theme.palette.error.light }} />
         </MotionIconButton>
+        {/* //- Icono */}
       </Box>
-      {/* § Termina creacion de titulo Menu y Boton "Cerrar" en Moviles */}
+      {/* //^ § T creacion de titulo Menu y Boton "Cerrar" en Moviles */}
 
-      {/* § Inicia creacion de lista con links del Menu */}
+      {/* //? § I creacion de lista con links del Menu */}
       <List
         sx={{
-          display: "flex",
-          flexDirection: "column",
-          flexGrow: 1, // 🔥 clave
-          alignItems: "center",
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          position: 'relative',
+          flexGrow: 1,
         }}
       >
-        {/* § Inicia carga de Links de Navegacion de Menu de Moviles */}
+        {/* //+ § I carga de Links de Navegacion de Menu de Moviles */}
         {navLinks.map((item, index) => (
           <ListItem
             key={item.title}
             disablePadding
             sx={{
-              width: "80%",
-              top: "1%",
+              width: '80%',
+              top: '1%',
               height: 75,
             }}
           >
+            {/* //^ I creacion y carga de botones del Menu */}
             <MotionListItemButton
               component="a"
               href={item.href}
@@ -215,39 +219,43 @@ const Navbar = () => {
               animate={{ opacity: 1, x: 0 }}
               transition={{
                 duration: 0.1,
-                delay: index * 0.2, // 👈 efecto escalonado
-                ease: "easeOut",
+                delay: index * 0.2,
+                ease: 'easeOut',
               }}
-              whileHover={{ scale: 1.1 }}
+              whileHover={{ scale: 1 }}
               sx={{
-                position: "relative",
-                textAlign: "center",
+                position: 'relative',
+                textAlign: 'center',
                 color: theme.palette.primary.light,
-                overflow: "hidden",
-                justifyContent: "center",
-                borderRadius: "20px",
-                border: "1px solid",
-                borderColor: "rgba(255, 255, 255, 0.1)",
-                boxShadow: "0 4px 20px rgba(0, 0, 0, 0.3)",
-                alignItems: "center",
-                height: "70%",
+                overflow: 'hidden',
+                justifyContent: 'center',
+                borderRadius: '20px',
+                border: '1px solid',
+                borderColor: alpha(theme.palette.utiles.azulProfundo, 0.1),
+                boxShadow: '0 4px 20px rgba(0, 0, 0, 0.15)',
+                alignItems: 'center',
+                height: '70%',
               }}
             >
+              {/* //- Texto que contiene el boton */}
               <ListItemText primary={item.title} />
+              {/* //- Texto que contiene el boton */}
             </MotionListItemButton>
+            {/* //^ T creacion y carga de botones del Menu */}
           </ListItem>
         ))}
-        {/* § Termina carga de Links de Navegacion de Menu de Moviles */}
+        {/* //+§ T carga de Links de Navegacion de Menu de Moviles */}
 
-        {/* § Inicia Boton "Incotech Tienda" en Moviles */}
+        {/* //- § I Boton "Incotech Tienda" en Moviles */}
         <ListItem
           disablePadding
           sx={{
-            width: "80%",
-            top: "1%",
+            width: '80%',
+            top: '1%',
             height: 75,
           }}
         >
+          {/* //^ I Animacion de boton */}
           <MotionButton
             initial={{
               opacity: 0,
@@ -256,144 +264,136 @@ const Navbar = () => {
             }}
             animate={{ opacity: 1, x: 0, scale: 1 }}
             transition={{
-              duration: 0.6,
-              ease: "easeOut",
-              delay: 0.5,
+              duration: 0.3,
+              ease: 'easeOut',
+              delay: 1,
             }}
             fullWidth
             href="#signup"
             onClick={handleDrawerToggle}
             sx={{
-              cursor: "pointer",
-              position: "relative",
-              background: "linear-gradient(50deg, #2b4acb 15%, #58d1c9 95%)",
-              textAlign: "center",
+              cursor: 'pointer',
+              position: 'relative',
+              background: 'linear-gradient(50deg, #2b4acb 15%, #58d1c9 95%)',
+              textAlign: 'center',
               color: theme.palette.primary.light,
-              overflow: "hidden",
-              justifyContent: "center",
-              borderRadius: "20px",
-              borderColor: "rgba(255, 255, 255, 0.1)",
-              boxShadow: "0 4px 20px rgba(0, 0, 0, 0.3)",
-              alignItems: "center",
-              height: "70%",
+              overflow: 'hidden',
+              justifyContent: 'center',
+              borderRadius: '20px',
+              borderColor: 'rgba(255, 255, 255, 0.1)',
+              boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3)',
+              alignItems: 'center',
+              height: '70%',
             }}
           >
             Incotech Tienda
           </MotionButton>
+          {/* //^ T Animacion de boton */}
         </ListItem>
-        {/* § Termina Boton "Incotech Tienda" en Moviles */}
+        {/* //- § T Boton "Incotech Tienda" en Moviles */}
+      </List>
+      {/* //? § T creacion de lista con links del Menu */}
 
-        {/* § Inicia Setteo de Logo y nombre en Menu Moviles */}
-        <ListItem
+      {/* //& § I Setteo de Logo y nombre en Menu Moviles */}
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          height: '55px',
+        }}
+      >
+        {/* //^ § I MotionBox que contiene la animacion y elementos de footer */}
+        <MotionBox
+          initial={{ opacity: 0, y: 30, scale: 0.95 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.6, ease: 'easeOut', delay: 0.2 }}
           sx={{
-            position: "absolute",
-            pb: 1,
-            bottom: -4,
-            left: 0,
-            right: 0,
-            display: "flex",
-            justifyContent: "center",
+            display: 'flex',
+            justifyContent: 'center',
+            mt: 'auto',
+            mb: 'auto',
+            alignItems: 'center',
           }}
         >
-          <MotionBox
-            initial={{ opacity: 0, y: 30, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{
-              duration: 0.6,
-              ease: "easeOut",
-              delay: 0.2,
-            }}
+          {/* //* § Box que contiene LOGO */}
+          <Box
+            component="img"
+            src={logo}
+            alt="Incotech logo"
+            sx={{ height: 50, width: 50, objectFit: 'contain' }}
+          />
+          {/* //* § Box que contiene LOGO */}
+
+          {/* //- § Typography que contiene TEXTO */}
+          <Typography
+            variant="h5"
             sx={{
-              display: "flex",
-              alignItems: "center",
-              gap: 1,
+              fontWeight: 800,
+              letterSpacing: '-0.5px',
+              background: 'linear-gradient(50deg, #2b4acb 15%, #58d1c9 95%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
             }}
           >
-            <Box
-              component="img"
-              src={logo}
-              alt="Incotech logo"
-              sx={{
-                height: 50,
-                width: 50,
-                objectFit: "contain",
-              }}
-            />
-
-            <Typography
-              variant="h5"
-              sx={{
-                fontWeight: 800,
-                letterSpacing: "-0.5px",
-                background: "linear-gradient(50deg, #2b4acb 15%, #58d1c9 95%)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-              }}
-            >
-              Incotech
-            </Typography>
-          </MotionBox>
-        </ListItem>
-        {/* § Termina Setteo de Logo y nombre en Menu Moviles */}
-      </List>
-      {/* § Inicia creacion de lista con links del Menu */}
+            Incotech
+          </Typography>
+          {/* //- § Typography que contiene TEXTO */}
+        </MotionBox>
+        {/* //^ § T MotionBox que contiene la animacion y elementos de footer*/}
+      </Box>
+      {/* //& § T Setteo de Logo y nombre en Menu Moviles */}
     </Box>
   );
-  // § Termina creacion de MenuSlide para Interaccion con Moviles
+  //! § T creacion de MenuSlide para Interaccion con Moviles
 
-  // § Inicia Return de la visualizacion de los componentes
+  //! § I Return de la visualizacion de los componentes
   return (
     <>
-      {/* § Inicia Esqueleto y NavBar De PC */}
+      {/* //* § I animacion y NavBar De PC */}
       <MotionAppBar
         position="fixed"
         color="transparent"
         elevation={0}
-        initial={false} // 🔥 importante cuando depende de estado
+        initial={false}
         animate={{
-          backdropFilter: scrolled ? "blur(5px)" : "blur(0px)",
-          backgroundColor: scrolled
-            ? "rgba(255,255,255,0.1)"
-            : "rgba(255,255,255,0)",
-          boxShadow: scrolled
-            ? "0 4px 30px rgba(0,0,0,0.08)"
-            : "0 0px 0px rgba(0,0,0,0)",
+          backdropFilter: scrolled ? 'blur(5px)' : 'blur(0px)',
+          backgroundColor: scrolled ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0)',
+          boxShadow: scrolled ? '0 4px 30px rgba(0,0,0,0.08)' : '0 0px 0px rgba(0,0,0,0)',
         }}
         transition={{
           duration: 0.4,
-          ease: "easeOut",
-          type: "spring",
+          ease: 'easeOut',
+          type: 'spring',
           stiffness: 120,
           damping: 20,
         }}
         sx={{
-          WebkitBackdropFilter: scrolled ? "blur(7px)" : "blur(0px)", // soporte Safari
+          WebkitBackdropFilter: scrolled ? 'blur(7px)' : 'blur(0px)', // soporte para Safari
         }}
       >
-        {/* § Inicia Container de contencion de paddings a los lados */}
+        {/* //~ § I Container de contencion de paddings a los lados */}
         <Container maxWidth="lg">
           <Toolbar
             sx={{
               minHeight: { xs: 70, md: 80 },
-              px: { xs: 2, md: 6 },
-              maxWidth: "1400px",
-              mx: "auto",
-              width: "100%",
-              display: "grid",
-              gridTemplateColumns: "1fr auto 1fr", // ✅ balance real
-              alignItems: "center",
+              maxWidth: '1400px',
+              mx: 'auto',
+              width: '100%',
+              display: 'grid',
+              gridTemplateColumns: '1fr auto 1fr',
+              alignItems: 'center',
             }}
           >
-            {/* § Inicia Setteo de Logo y nombre en Menu PC */}
+            {/* //- § I Setteo de Logo y nombre en Menu PC */}
             <Box
               sx={{
-                display: "flex",
-                justifyContent: "flex-start", // ✅ izquierda
-                alignItems: "center",
+                display: 'flex',
+                justifyContent: 'flex-start',
+                alignItems: 'center',
                 gap: 1,
               }}
             >
-              {/* Imagen */}
+              {/* //& Imagen de logo */}
               <Box
                 component="img"
                 src={logo}
@@ -401,93 +401,97 @@ const Navbar = () => {
                 sx={{
                   height: 50,
                   width: 50,
-                  objectFit: "contain",
+                  objectFit: 'contain',
                 }}
               />
-              {/* Texto */}
+              {/* //& Imagen de logo */}
+              {/* //* Texto de logo */}
               <Typography
                 variant="h5"
                 component="div"
                 sx={{
                   fontWeight: 800,
-                  letterSpacing: "-0.5px",
-                  background:
-                    "linear-gradient(50deg, #2b4acb 15%, #58d1c9 95%)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
+                  letterSpacing: '-0.5px',
+                  background: 'linear-gradient(50deg, #2b4acb 15%, #58d1c9 95%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
                 }}
               >
                 Incotech
               </Typography>
+              {/* //* Texto de logo */}
             </Box>
-            {/* § Termina Setteo de Logo y nombre en Menu PC */}
+            {/* //- § T Setteo de Logo y nombre en Menu PC */}
 
-            {/* § Inicia carga de Links de Navegacion de Menu PC */}
+            {/* //+ § I carga de Links de Navegacion de Menu PC */}
             {!isMobile && (
               <Box
                 sx={{
-                  display: "flex",
+                  display: 'flex',
                   gap: 4,
-                  justifyContent: "center",
+                  justifyContent: 'center',
                 }}
               >
+                {/* //! § I Carga de links */}
                 {navLinks.map((link) => (
+                  //* I Animacion de links
                   <MotionButton
                     initial="rest"
                     whileHover="hover"
                     animate="rest"
                     variants={{
-                      rest: { scale: 1, color: "#2b3aa3" },
+                      rest: { scale: 1, color: alpha(theme.palette.primary.main, 1) },
                       hover: {
                         scale: 1.1,
-                        color: theme.palette.primary.light,
+                        color: theme.palette.utiles.azulHover,
                       },
                     }}
                     transition={{ duration: 0.5 }}
                     sx={{
-                      position: "relative",
+                      position: 'relative',
                       fontSize: 17,
-                      fontWeight: "normal",
-                      backgroundColor: "transparent",
+                      fontWeight: 'normal',
+                      backgroundColor: 'transparent',
                       borderRadius: 2,
                     }}
                   >
-                    {link.title}
-
+                    {link.title} {/* //^ § nombre de link */}
                     <Box
                       component={motion.span}
                       variants={{
                         rest: { width: 0 },
-                        hover: { width: "70%" },
+                        hover: { width: '70%' },
                       }}
                       transition={{ duration: 0.35 }}
                       sx={{
-                        position: "absolute",
-                        display: "block",
-                        height: "2px",
-                        bottom: "6px",
-                        left: "50%",
-                        transform: "translateX(-50%)",
-                        background:
-                          "linear-gradient(50deg, #2b4acb 15%, #58d1c9 95%)",
-                        pointerEvents: "none",
+                        position: 'absolute',
+                        display: 'block',
+                        height: '2px',
+                        bottom: '6px',
+                        left: '50%',
+                        transform: 'translateX(-50%)',
+                        background: 'linear-gradient(50deg, #2b4acb 15%, #58d1c9 95%)',
+                        pointerEvents: 'none',
                       }}
                     />
                   </MotionButton>
+                  //* T Animacion de links
                 ))}
+                {/* //! § T Carga de links */}
               </Box>
             )}
-            {/* § Termina carga de Links de Navegacion de Menu PC */}
+            {/* //+ § T carga de Links de Navegacion de Menu PC */}
 
-            {/* § Inicia Boton "Incotech Tienda" en PC */}
+            {/* //^ § I Box de btn Incotech Tienda y Abrir Menu en PC */}
             <Box
               sx={{
-                display: "flex",
-                alignItems: "center",
+                display: 'flex',
+                alignItems: 'center',
                 gap: 2,
-                justifyContent: "flex-end", // ✅ derecha real
+                justifyContent: 'flex-end',
               }}
             >
+              {/* //- § I Boton "Incotech Tienda" en PC */}
               {!isMobile && (
                 <Button
                   variant="contained"
@@ -495,102 +499,100 @@ const Navbar = () => {
                   disableElevation
                   sx={{
                     borderRadius: 50,
-                    border: "none",
-                    outline: "none",
-                    color: "#fff",
-                    cursor: "pointer",
-                    position: "relative",
+                    border: 'none',
+                    outline: 'none',
+                    color: '#fff',
+                    cursor: 'pointer',
+                    position: 'relative',
                     zIndex: 0,
-                    background:
-                      "linear-gradient(50deg, #2b4acb 15%, #58d1c9 95%)",
-                    boxShadow: "0 4px 20px rgba(99, 102, 241, 0.25)",
+                    background: 'linear-gradient(50deg, #2b4acb 15%, #58d1c9 95%)',
+                    boxShadow: '0 4px 20px rgba(99, 102, 241, 0.25)',
 
-                    "&::before": {
+                    '&::before': {
                       content: '""',
-                      background: "linear-gradient(50deg, #2b4acb, #58d1c9)",
-                      position: "absolute",
+                      background: 'linear-gradient(50deg, #2b4acb, #58d1c9)',
+                      position: 'absolute',
                       top: -2,
                       left: -2,
-                      backgroundSize: "400%",
+                      backgroundSize: '400%',
                       zIndex: -1,
-                      filter: "blur(5px)",
-                      width: "calc(100% + 4px)",
-                      height: "calc(100% + 4px)",
-                      animation: "glowing 1s linear infinite",
+                      filter: 'blur(5px)',
+                      width: 'calc(100% + 4px)',
+                      height: 'calc(100% + 4px)',
+                      animation: 'glowing 1s linear infinite',
                       opacity: 0,
-                      transition: "opacity .3s ease-in-out",
+                      transition: 'opacity .3s ease-in-out',
                       borderRadius: 50,
                     },
 
-                    "&:hover::before": {
+                    '&:hover::before': {
                       opacity: 1,
                     },
 
-                    "&:active": {
-                      color: "#000",
+                    '&:active': {
+                      color: '#000',
                     },
 
-                    "&:active::after": {
-                      background: "transparent",
+                    '&:active::after': {
+                      background: 'transparent',
                     },
 
-                    "&::after": {
+                    '&::after': {
                       zIndex: -1,
                       content: '""',
-                      position: "absolute",
-                      width: "100%",
-                      height: "100%",
-                      background:
-                        "linear-gradient(50deg, #2b4acb 15%, #58d1c9 95%)",
+                      position: 'absolute',
+                      width: '100%',
+                      height: '100%',
+                      background: 'linear-gradient(50deg, #2b4acb 15%, #58d1c9 95%)',
                       left: 0,
                       top: 0,
                       borderRadius: 50,
                     },
 
-                    "@keyframes glowing": {
-                      "0%": { backgroundPosition: "0 0" },
-                      "20%": { backgroundPosition: "25% 0" },
-                      "40%": { backgroundPosition: "50% 0" },
-                      "60%": { backgroundPosition: "75% 0" },
-                      "80%": { backgroundPosition: "100% 0" },
-                      "100%": { backgroundPosition: "0% 0" },
+                    '@keyframes glowing': {
+                      '0%': { backgroundPosition: '0 0' },
+                      '20%': { backgroundPosition: '25% 0' },
+                      '40%': { backgroundPosition: '50% 0' },
+                      '60%': { backgroundPosition: '75% 0' },
+                      '80%': { backgroundPosition: '100% 0' },
+                      '100%': { backgroundPosition: '0% 0' },
                     },
                   }}
                 >
                   Incotech Tienda
                 </Button>
               )}
-              {/* § Termina Boton "Incotech Tienda" en PC */}
+              {/* //- § T Boton "Incotech Tienda" en PC */}
 
-              {/* § Inicia Boton para abrir menu en Moviles */}
+              {/* //& § I Boton para abrir menu en Moviles */}
               {isMobile && (
                 <IconButton
                   onClick={handleDrawerToggle}
                   sx={{
-                    display: "flow",
-                    justifyContent: "flex-end",
-                    left: { xs: "37vw", sm: "43vw", md: "43vw", lg: "43vw" },
-                    color: "white",
+                    display: 'flow',
+                    justifyContent: 'flex-end',
+                    left: { xs: '37vw', sm: '43vw', md: '43vw', lg: '43vw' },
+                    color: 'white',
                   }}
                 >
                   <MotionMenuOpen
                     sx={{
-                      transform: "scale(1.6)",
-                      color: theme.palette.primary.dark,
+                      transform: 'scale(1.6)',
+                      color: theme.palette.utiles.azulHover,
                     }}
                   />
                 </IconButton>
               )}
-              {/* § Termina Boton para abrir menu en Moviles */}
+              {/* //& § T Boton para abrir menu en Moviles */}
             </Box>
-            {/* § Termina Boton "Incotech Tienda" en PC */}
+            {/* //^ § I Box de btn Incotech Tienda y Abrir Menu en PC */}
           </Toolbar>
         </Container>
-        {/* § Termina Container de contencion de paddings a los lados */}
+        {/* //~ § T Container de contencion de paddings a los lados */}
       </MotionAppBar>
-      {/* § Termina Esqueleto y NavBar De PC */}
+      {/* //* § T animacion y NavBar De PC */}
 
-      {/* § Inicia Drawer del Menu de Moviles*/}
+      {/* //& § I Drawer del Menu de Moviles*/}
       <Drawer
         anchor="right"
         open={mobileOpen}
@@ -598,27 +600,29 @@ const Navbar = () => {
         slotProps={{
           paper: {
             sx: {
-              width: { xs: "90%", sm: "50%", md: "30%" },
-              height: "90vh",
-              top: "5vh",
+              width: { xs: '90%', sm: '50%', md: '30%' },
+              height: '80vh',
+              top: '5vh',
               right: 20,
-              borderRadius: "24px",
-              backdropFilter: "blur(10px)",
-              backgroundColor: "rgba(255,255,255,0.2)",
-              boxShadow: "0 20px 60px rgba(0,0,0,0.25)",
-              overflow: "hidden",
+              borderRadius: '24px',
+              backdropFilter: 'blur(10px)',
+              backgroundColor: 'rgba(255,255,255,0.2)',
+              boxShadow: '0 20px 60px rgba(0,0,0,0.25)',
+              overflow: 'hidden',
             },
           },
         }}
       >
         {drawer}
       </Drawer>
-      {/* § Termina Drawer del Menu de Moviles*/}
+      {/* //& § T Drawer del Menu de Moviles*/}
 
-      {/* Espaciador */}
+      {/* //+ I Espaciador */}
       <Toolbar sx={{ minHeight: { xs: 70, md: 80 } }} />
+      {/* //+ T Espaciador */}
     </>
   );
+  //! § T Return de la visualizacion de los componentes
 };
 
 export default Navbar;
