@@ -23,6 +23,7 @@ declare module '@mui/material/styles' {
       azulMasClaro: string;
       azulProfundo: string;
       azulHover: string;
+      azulMasHover: string;
       cianClaro: string;
       cianOscuro: string;
       cian: string;
@@ -34,6 +35,7 @@ declare module '@mui/material/styles' {
       azulMasClaro: string;
       azulProfundo: string;
       azulHover: string;
+      azulMasHover: string;
       cianClaro: string;
       cianOscuro: string;
       cian: string;
@@ -60,6 +62,7 @@ const theme = createTheme({
       azulMasClaro: '#7089E0',
       azulProfundo: '#0D1A6B',
       azulHover: '#DDE2F7',
+      azulMasHover: '#eef1fb',
       cianClaro: '#A8EBE7',
       cianOscuro: '#1B6B66',
       cian: '#58D1C9',

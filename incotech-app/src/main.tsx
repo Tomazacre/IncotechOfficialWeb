@@ -2,6 +2,7 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.css';
 import CarroDeCompras from './Componentes/COM_CarritoDeCompras.tsx';
+//import CarruselDeMarcas from './Componentes/COM_CarruselDeMarcas.tsx';
 //import App from "./App.tsx";
 //import PruebaHD from "./pruebasEnCodigo.tsx";
 //import DottedConnector from "./pruebasEnCodigo.tsx";
@@ -17,7 +18,8 @@ createRoot(document.getElementById('root')!).render(
       {/*<Navbar />*/}
       {/*<App />*/}
       <HeroSection />
-      {/*<CarroDeCompras />*/}
+      {/*<CarruselDeMarcas />}*/}
+      <CarroDeCompras />
       {/*<PruebaHD />*/}
     </ThemeProvider>
   </StrictMode>
