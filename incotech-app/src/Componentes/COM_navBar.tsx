@@ -16,6 +16,10 @@
 //import React from "react";
 import { useState, useEffect } from 'react';
 import logo from '../assets/IncotechLogo.png';
+import InfoModal from '../Componentes/COM_VentanaEmergente.tsx';
+import ContactModal from './COM_InfoContacto.tsx';
+import ServicesModal from './COM_InfoServicios.tsx';
+import BolsaModal from './COM_BolsaDeTrabajo.tsx';
 //~ § imports a documentos y recursos
 
 //~ § Componentes y hooks de Material UI
@@ -39,18 +43,7 @@ import {
 import MenuOpenRoundedIcon from '@mui/icons-material/MenuOpenRounded';
 import CloseIcon from '@mui/icons-material/Close';
 import { motion } from 'framer-motion';
-import { green } from '@mui/material/colors';
 //~ § Componentes y hooks de Material UI
-
-//~ § Links del menú (se renderizan dinámicamente con map)
-const navLinks = [
-  { title: 'Inicio', href: '#products' },
-  { title: 'Servicios', href: '#features' },
-  { title: 'Productos', href: '#pricing' },
-  { title: 'Radio', href: '#blog' },
-  { title: 'Contáctanos', href: '#blog' },
-];
-//~ § Links del menú (se renderizan dinámicamente con map)
 
 //~ § Componentes Animados con Framer Motion de MUI
 const MotionListItemButton = motion(ListItemButton as React.ComponentType<any>);
@@ -63,6 +56,29 @@ const MotionIconButton = motion(IconButton);
 //~ § Componentes Animados con Framer Motion de MUI
 
 const Navbar = () => {
+  const [openServ, setOpenServ] = useState(false);
+  const [openProd, setOpenProd] = useState(false);
+  const [openRadio, setOpenRadio] = useState(false);
+  const [openContact, setOpenContact] = useState(false);
+  const [openBolsa, setOpenBolsa] = useState(false);
+
+  interface navLinks {
+    title: string;
+    href: string;
+    onClick: () => void;
+  }
+
+  //~ § Links del menú (se renderizan dinámicamente con map)
+  const navLinks = [
+    { title: 'Inicio', href: '#products', onClick: () => setOpenServ(true) },
+    { title: 'Servicios', href: '#features', onClick: () => setOpenServ(true) },
+    { title: 'Productos', href: '#pricing', onClick: () => setOpenProd(true) },
+    { title: 'Radio', href: '#blog', onClick: () => setOpenRadio(true) },
+    { title: 'Contáctanos', href: '#contacto', onClick: () => setOpenContact(true) },
+    { title: 'Bolsa de Trabajo', href: '#trabajo', onClick: () => setOpenBolsa(true) },
+  ];
+  //~ § Links del menú (se renderizan dinámicamente con map)
+
   //~ § Variables que se van a utilizar en el Componente
   const theme = useTheme(); // Obtiene el tema actual
   const isMobile = useMediaQuery(theme.breakpoints.down('md')); // true si la pantalla es menor que "md"
@@ -214,7 +230,7 @@ const Navbar = () => {
             <MotionListItemButton
               component="a"
               href={item.href}
-              onClick={handleDrawerToggle}
+              onClick={item.onClick}
               initial={{ opacity: 0, x: 80 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{
@@ -369,227 +385,229 @@ const Navbar = () => {
           damping: 20,
         }}
         sx={{
-          WebkitBackdropFilter: scrolled ? 'blur(7px)' : 'blur(0px)', // soporte para Safari
+          WebkitBackdropFilter: scrolled ? 'blur(7px)' : 'blur(0px)',
         }}
       >
         {/* //~ § I Container de contencion de paddings a los lados */}
-
-        <Toolbar
-          sx={{
-            minHeight: { xs: 40, md: 50 },
-            maxWidth: '1400px',
-            width: '100%',
-            display: 'grid',
-            gridTemplateColumns: '1fr auto 1fr',
-            alignItems: 'center',
-            //background: scrolled ? 'transparent' : 'linear-gradient(45deg, white 0%, #3348c7 100%)', // Fondo transparente inicialmente, se vuelve semitransparente al hacer scroll
-          }}
-        >
-          {/* //- § I Setteo de Logo y nombre en Menu PC */}
-          <Box
+        <Box sx={{ maxWidth: 1400, width: '100%', margin: '0 auto' }}>
+          <Toolbar
             sx={{
-              display: 'flex',
-              justifyContent: 'flex-start',
+              minHeight: { xs: 40, md: 50 },
+              maxWidth: '1400px',
+              width: '100%',
+              display: 'grid',
+              gridTemplateColumns: '1fr auto 1fr',
               alignItems: 'center',
-              gap: 1,
-              paddingLeft: { xs: 0, md: 10 },
+              //background: scrolled ? 'transparent' : 'linear-gradient(45deg, white 0%, #3348c7 100%)', // Fondo transparente inicialmente, se vuelve semitransparente al hacer scroll
             }}
           >
-            {/* //& Imagen de logo */}
-            <Box
-              component="img"
-              src={logo}
-              alt="Incotech logo"
-              sx={{
-                height: 50,
-                width: 50,
-                objectFit: 'contain',
-              }}
-            />
-            {/* //& Imagen de logo */}
-            {/* //* Texto de logo */}
-            <Typography
-              variant="h5"
-              component="div"
-              sx={{
-                fontWeight: 800,
-                letterSpacing: '-0.5px',
-                background: 'linear-gradient(50deg, #2b4acb 15%, #58d1c9 95%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-              }}
-            >
-              Incotech
-            </Typography>
-            {/* //* Texto de logo */}
-          </Box>
-          {/* //- § T Setteo de Logo y nombre en Menu PC */}
-
-          {/* //+ § I carga de Links de Navegacion de Menu PC */}
-          {!isMobile && (
+            {/* //- § I Setteo de Logo y nombre en Menu PC */}
             <Box
               sx={{
                 display: 'flex',
-                gap: 4,
-                justifyContent: 'center',
+                justifyContent: 'flex-start',
+                alignItems: 'center',
+                gap: 1,
+                paddingLeft: { xs: 0, md: 10 },
               }}
             >
-              {/* //! § I Carga de links */}
-              {navLinks.map((link) => (
-                //* I Animacion de links
-                <MotionButton
-                  initial="rest"
-                  whileHover="hover"
-                  animate="rest"
-                  variants={{
-                    rest: { scale: 1, color: alpha(theme.palette.primary.main, 1) },
-                    hover: {
-                      scale: 1.1,
-                      color: theme.palette.utiles.azulHover,
+              {/* //& Imagen de logo */}
+              <Box
+                component="img"
+                src={logo}
+                alt="Incotech logo"
+                sx={{
+                  height: 50,
+                  width: 50,
+                  objectFit: 'contain',
+                }}
+              />
+              {/* //& Imagen de logo */}
+              {/* //* Texto de logo */}
+              <Typography
+                variant="h5"
+                component="div"
+                sx={{
+                  fontWeight: 800,
+                  letterSpacing: '-0.5px',
+                  background: 'linear-gradient(50deg, #2b4acb 15%, #58d1c9 95%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                }}
+              >
+                Incotech
+              </Typography>
+              {/* //* Texto de logo */}
+            </Box>
+            {/* //- § T Setteo de Logo y nombre en Menu PC */}
+
+            {/* //+ § I carga de Links de Navegacion de Menu PC */}
+            {!isMobile && (
+              <Box
+                sx={{
+                  display: 'flex',
+                  gap: 4,
+                  justifyContent: 'center',
+                }}
+              >
+                {/* //! § I Carga de links */}
+                {navLinks.map((link) => (
+                  //* I Animacion de links
+                  <MotionButton
+                    initial="rest"
+                    whileHover="hover"
+                    animate="rest"
+                    onClick={link.onClick}
+                    variants={{
+                      rest: { scale: 1, color: alpha(theme.palette.primary.main, 1) },
+                      hover: {
+                        scale: 1.1,
+                        color: theme.palette.utiles.azulHover,
+                      },
+                    }}
+                    transition={{ duration: 0.5 }}
+                    sx={{
+                      position: 'relative',
+                      fontSize: 17,
+                      fontWeight: 'normal',
+                      backgroundColor: 'transparent',
+                      borderRadius: 2,
+                    }}
+                  >
+                    {link.title} {/* //^ § nombre de link */}
+                    <Box
+                      component={motion.span}
+                      variants={{
+                        rest: { width: 0 },
+                        hover: { width: '70%' },
+                      }}
+                      transition={{ duration: 0.35 }}
+                      sx={{
+                        position: 'absolute',
+                        display: 'block',
+                        height: '2px',
+                        bottom: '6px',
+                        left: '50%',
+                        transform: 'translateX(-50%)',
+                        background: 'linear-gradient(50deg, #2b4acb 15%, #58d1c9 95%)',
+                        pointerEvents: 'none',
+                      }}
+                    />
+                  </MotionButton>
+                  //* T Animacion de links
+                ))}
+                {/* //! § T Carga de links */}
+              </Box>
+            )}
+            {/* //+ § T carga de Links de Navegacion de Menu PC */}
+
+            {/* //^ § I Box de btn Incotech Tienda y Abrir Menu en PC */}
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 2,
+                justifyContent: 'flex-end',
+                paddingRight: { xs: 0, md: 0 },
+              }}
+            >
+              {/* //- § I Boton "Incotech Tienda" en PC */}
+              {!isMobile && (
+                <Button
+                  variant="contained"
+                  color="primary"
+                  disableElevation
+                  sx={{
+                    borderRadius: 50,
+                    border: 'none',
+                    outline: 'none',
+                    color: '#fff',
+                    cursor: 'pointer',
+                    position: 'relative',
+                    zIndex: 0,
+                    background: 'linear-gradient(50deg, #2b4acb 15%, #58d1c9 95%)',
+                    boxShadow: '0 4px 20px rgba(99, 102, 241, 0.25)',
+
+                    '&::before': {
+                      content: '""',
+                      background: 'linear-gradient(50deg, #2b4acb, #58d1c9)',
+                      position: 'absolute',
+                      top: -2,
+                      left: -2,
+                      backgroundSize: '400%',
+                      zIndex: -1,
+                      filter: 'blur(5px)',
+                      width: 'calc(100% + 4px)',
+                      height: 'calc(100% + 4px)',
+                      animation: 'glowing 1s linear infinite',
+                      opacity: 0,
+                      transition: 'opacity .3s ease-in-out',
+                      borderRadius: 50,
+                    },
+
+                    '&:hover::before': {
+                      opacity: 1,
+                    },
+
+                    '&:active': {
+                      color: '#000',
+                    },
+
+                    '&:active::after': {
+                      background: 'transparent',
+                    },
+
+                    '&::after': {
+                      zIndex: -1,
+                      content: '""',
+                      position: 'absolute',
+                      width: '100%',
+                      height: '100%',
+                      background: 'linear-gradient(50deg, #2b4acb 15%, #58d1c9 95%)',
+                      left: 0,
+                      top: 0,
+                      borderRadius: 50,
+                    },
+
+                    '@keyframes glowing': {
+                      '0%': { backgroundPosition: '0 0' },
+                      '20%': { backgroundPosition: '25% 0' },
+                      '40%': { backgroundPosition: '50% 0' },
+                      '60%': { backgroundPosition: '75% 0' },
+                      '80%': { backgroundPosition: '100% 0' },
+                      '100%': { backgroundPosition: '0% 0' },
                     },
                   }}
-                  transition={{ duration: 0.5 }}
+                >
+                  Incotech Tienda
+                </Button>
+              )}
+              {/* //- § T Boton "Incotech Tienda" en PC */}
+
+              {/* //& § I Boton para abrir menu en Moviles */}
+              {isMobile && (
+                <IconButton
+                  onClick={handleDrawerToggle}
                   sx={{
-                    position: 'relative',
-                    fontSize: 17,
-                    fontWeight: 'normal',
-                    backgroundColor: 'transparent',
-                    borderRadius: 2,
+                    display: 'flow',
+                    justifyContent: 'flex-end',
+                    left: { xs: '37vw', sm: '43vw', md: '43vw', lg: '43vw' },
+                    color: 'white',
                   }}
                 >
-                  {link.title} {/* //^ § nombre de link */}
-                  <Box
-                    component={motion.span}
-                    variants={{
-                      rest: { width: 0 },
-                      hover: { width: '70%' },
-                    }}
-                    transition={{ duration: 0.35 }}
+                  <MotionMenuOpen
                     sx={{
-                      position: 'absolute',
-                      display: 'block',
-                      height: '2px',
-                      bottom: '6px',
-                      left: '50%',
-                      transform: 'translateX(-50%)',
-                      background: 'linear-gradient(50deg, #2b4acb 15%, #58d1c9 95%)',
-                      pointerEvents: 'none',
+                      transform: 'scale(1.6)',
+                      color: theme.palette.utiles.azulHover,
                     }}
                   />
-                </MotionButton>
-                //* T Animacion de links
-              ))}
-              {/* //! § T Carga de links */}
+                </IconButton>
+              )}
+              {/* //& § T Boton para abrir menu en Moviles */}
             </Box>
-          )}
-          {/* //+ § T carga de Links de Navegacion de Menu PC */}
-
-          {/* //^ § I Box de btn Incotech Tienda y Abrir Menu en PC */}
-          <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 2,
-              justifyContent: 'flex-end',
-              paddingRight: { xs: 0, md: 10 },
-            }}
-          >
-            {/* //- § I Boton "Incotech Tienda" en PC */}
-            {!isMobile && (
-              <Button
-                variant="contained"
-                color="primary"
-                disableElevation
-                sx={{
-                  borderRadius: 50,
-                  border: 'none',
-                  outline: 'none',
-                  color: '#fff',
-                  cursor: 'pointer',
-                  position: 'relative',
-                  zIndex: 0,
-                  background: 'linear-gradient(50deg, #2b4acb 15%, #58d1c9 95%)',
-                  boxShadow: '0 4px 20px rgba(99, 102, 241, 0.25)',
-
-                  '&::before': {
-                    content: '""',
-                    background: 'linear-gradient(50deg, #2b4acb, #58d1c9)',
-                    position: 'absolute',
-                    top: -2,
-                    left: -2,
-                    backgroundSize: '400%',
-                    zIndex: -1,
-                    filter: 'blur(5px)',
-                    width: 'calc(100% + 4px)',
-                    height: 'calc(100% + 4px)',
-                    animation: 'glowing 1s linear infinite',
-                    opacity: 0,
-                    transition: 'opacity .3s ease-in-out',
-                    borderRadius: 50,
-                  },
-
-                  '&:hover::before': {
-                    opacity: 1,
-                  },
-
-                  '&:active': {
-                    color: '#000',
-                  },
-
-                  '&:active::after': {
-                    background: 'transparent',
-                  },
-
-                  '&::after': {
-                    zIndex: -1,
-                    content: '""',
-                    position: 'absolute',
-                    width: '100%',
-                    height: '100%',
-                    background: 'linear-gradient(50deg, #2b4acb 15%, #58d1c9 95%)',
-                    left: 0,
-                    top: 0,
-                    borderRadius: 50,
-                  },
-
-                  '@keyframes glowing': {
-                    '0%': { backgroundPosition: '0 0' },
-                    '20%': { backgroundPosition: '25% 0' },
-                    '40%': { backgroundPosition: '50% 0' },
-                    '60%': { backgroundPosition: '75% 0' },
-                    '80%': { backgroundPosition: '100% 0' },
-                    '100%': { backgroundPosition: '0% 0' },
-                  },
-                }}
-              >
-                Incotech Tienda
-              </Button>
-            )}
-            {/* //- § T Boton "Incotech Tienda" en PC */}
-
-            {/* //& § I Boton para abrir menu en Moviles */}
-            {isMobile && (
-              <IconButton
-                onClick={handleDrawerToggle}
-                sx={{
-                  display: 'flow',
-                  justifyContent: 'flex-end',
-                  left: { xs: '37vw', sm: '43vw', md: '43vw', lg: '43vw' },
-                  color: 'white',
-                }}
-              >
-                <MotionMenuOpen
-                  sx={{
-                    transform: 'scale(1.6)',
-                    color: theme.palette.utiles.azulHover,
-                  }}
-                />
-              </IconButton>
-            )}
-            {/* //& § T Boton para abrir menu en Moviles */}
-          </Box>
-          {/* //^ § I Box de btn Incotech Tienda y Abrir Menu en PC */}
-        </Toolbar>
+            {/* //^ § I Box de btn Incotech Tienda y Abrir Menu en PC */}
+          </Toolbar>
+        </Box>
         {/* //~ § T Container de contencion de paddings a los lados */}
       </MotionAppBar>
       {/* //* § T animacion y NavBar De PC */}
@@ -622,6 +640,18 @@ const Navbar = () => {
       {/* //+ I Espaciador */}
       <Toolbar sx={{ minHeight: { xs: 70, md: 80 } }} />
       {/* //+ T Espaciador */}
+
+      {openContact && <ContactModal open={openContact} onClose={() => setOpenContact(false)} />}
+      {openServ && <ServicesModal open={openServ} onClose={() => setOpenServ(false)} />}
+      {openProd && <InfoModal open={openProd} onClose={() => setOpenProd(false)} />}
+      {openRadio && <InfoModal open={openRadio} onClose={() => setOpenRadio(false)} />}
+      {openBolsa && (
+        <BolsaModal
+          open={openBolsa}
+          onClose={() => setOpenBolsa(false)}
+          onContacto={() => setOpenContact(true)}
+        />
+      )}
     </>
   );
   //! § T Return de la visualizacion de los componentes

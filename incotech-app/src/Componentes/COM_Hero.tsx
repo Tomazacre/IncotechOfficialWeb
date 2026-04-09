@@ -21,6 +21,7 @@ import AboutIncotech from './COM_AcercaDe';
 import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
 import IncotechLogo from '../assets/IncotechLogo.png';
 import theme from '../TemaCustom';
+import Footer from './COM_Footer.tsx';
 //~ § Componentes y hooks de Material UI
 
 export default function HeroSection() {
@@ -303,7 +304,7 @@ export default function HeroSection() {
       </Box>
       {/* //! I box que contiene al Hero completo */}
       <AboutIncotech />
-      <Button onClick={() => setOpen(true)}>Ver información</Button>
+      <Footer />
       <InfoModal open={open} onClose={() => setOpen(false)} />
     </>
   );
