@@ -22,7 +22,7 @@ import {
   Divider,
   Button,
   alpha,
-  useTheme,
+  //useTheme,
   Collapse,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
@@ -91,7 +91,7 @@ const puestos = [
 ];
 
 export default function JobsModal({ open, onClose, onContacto }: JobsModalProps) {
-  const theme = useTheme();
+  //const theme = useTheme();
   const [puestoAbierto, setPuestoAbierto] = useState<number | null>(null);
   const [puestoSeleccionado, setPuestoSeleccionado] = useState<string | null>(null);
   const [archivo, setArchivo] = useState<File | null>(null);

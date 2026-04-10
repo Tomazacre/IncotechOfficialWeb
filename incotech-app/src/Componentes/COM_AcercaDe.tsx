@@ -13,7 +13,6 @@
 //! ///////////////////////////////////////////
 
 import { Box, Typography, Stack, Button } from '@mui/material';
-import { red } from '@mui/material/colors';
 import { alpha } from '@mui/material/styles';
 import theme from '../TemaCustom';
 import CarruselDeMarcas from '../Componentes/COM_CarruselDeMarcas.tsx';
@@ -21,12 +20,11 @@ import CarruselDeMarcas from '../Componentes/COM_CarruselDeMarcas.tsx';
 // Reemplaza con tu imagen real
 const PHOTO_URL = 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=500&q=80';
 
-// Paleta del hero de Incotech
 // otro ejemplo de cian #1bbfb0
 const teal = theme.palette.primary.main;
 const navy = theme.palette.utiles.cian;
-const bodyText = '#2d4a80';
-const mutedText = '#5a72a8';
+const bodyText = theme.palette.utiles.azulProfundo;
+const mutedText = theme.palette.utiles.azulClaro;
 
 const stats = [
   { value: '2019', label: 'Fundación' },
@@ -51,7 +49,8 @@ export default function AboutIncotech() {
           boxSizing: 'border-box',
         }}
       >
-        {/* Círculos decorativos fondo — estilo hero */}
+        {/*//* I Boxes decorativos del Backgorund  */}
+        {/* Círculos decorativos fondo */}
         <Box
           sx={{
             position: 'absolute',
@@ -80,7 +79,6 @@ export default function AboutIncotech() {
             pointerEvents: 'none',
           }}
         />
-
         {/* Grid de puntos */}
         <Box
           sx={{
@@ -91,8 +89,9 @@ export default function AboutIncotech() {
             pointerEvents: 'none',
           }}
         />
+        {/*//* T Boxes decorativos del Backgorund  */}
 
-        {/* Contenido */}
+        {/*//& I Contenido de Acerca de */}
         <Box
           sx={{
             display: 'grid',
@@ -131,6 +130,7 @@ export default function AboutIncotech() {
                 transform: { xs: 'translateX(-50%)', md: 'none' },
               }}
             />
+            {/* Marco decorativo */}
 
             {/* Foto */}
             <Box
@@ -151,6 +151,7 @@ export default function AboutIncotech() {
                 boxShadow: `0 8px 32px ${alpha(navy, 0.18)}`,
               }}
             />
+            {/* Foto */}
 
             {/* Chip "5+ años" */}
             <Box
@@ -191,6 +192,7 @@ export default function AboutIncotech() {
                 AÑOS
               </Typography>
             </Box>
+            {/* Chip "5+ años" */}
 
             {/* Tag "Activo desde 2019" */}
             <Box
@@ -234,6 +236,7 @@ export default function AboutIncotech() {
                 Activo desde 2019
               </Typography>
             </Box>
+            {/* Tag "Activo desde 2019" */}
           </Box>
 
           {/* ── Texto ── */}
@@ -420,6 +423,7 @@ export default function AboutIncotech() {
             </Stack>
           </Stack>
         </Box>
+        {/*//& T Contenido de Acerca de */}
 
         <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@400;500&display=swap');

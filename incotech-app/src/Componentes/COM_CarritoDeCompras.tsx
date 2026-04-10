@@ -63,7 +63,7 @@ export default function CarroDeCompras() {
         bgcolor: 'background.paper',
       }}
     >
-      {/* Header */}
+      {/*//* I Header */}
       <Box
         sx={{
           px: 2.5,
@@ -82,8 +82,9 @@ export default function CarroDeCompras() {
           Mi carrito
         </Typography>
       </Box>
+      {/*//* T Header */}
 
-      {/* Items */}
+      {/*//& I Items */}
       <Box>
         {items.length === 0 ? (
           <Box sx={{ py: 5, textAlign: 'center' }}>
@@ -123,6 +124,7 @@ export default function CarroDeCompras() {
               >
                 {item.emoji}
               </Box>
+              {/* Emoji / imagen */}
 
               {/* Info + qty */}
               <Box sx={{ flex: 1, minWidth: 0 }}>
@@ -158,6 +160,7 @@ export default function CarroDeCompras() {
                   </IconButton>
                 </Stack>
               </Box>
+              {/* Info + qty */}
 
               {/* Precio + eliminar */}
               <Stack alignItems="flex-end" gap={0.5}>
@@ -175,14 +178,16 @@ export default function CarroDeCompras() {
                   {fmt(item.price * item.qty)}
                 </Typography>
               </Stack>
+              {/* Precio + eliminar */}
             </Box>
           ))
         )}
       </Box>
+      {/*//& T Items */}
 
       <Divider />
 
-      {/* Summary */}
+      {/*//^ I Summary */}
       <Box sx={{ px: 2.5, py: 2 }}>
         <Stack gap={1}>
           <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -210,8 +215,9 @@ export default function CarroDeCompras() {
           </Box>
         </Stack>
       </Box>
+      {/*//^ T Summary */}
 
-      {/* Checkout button */}
+      {/*//+ I Checkout button */}
       <Box sx={{ px: 2.5, pb: 2.5 }}>
         <Button
           fullWidth
@@ -222,6 +228,7 @@ export default function CarroDeCompras() {
           Proceder al pago
         </Button>
       </Box>
+      {/*//+ T Checkout button */}
     </Box>
   );
 }

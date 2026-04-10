@@ -32,8 +32,9 @@ createRoot(document.getElementById('root')!).render(
       {/*<Navbar />*/}
       {/*<App />*/}
       <HeroSection />
-      {/*<CarruselDeMarcas />}*/}
-      {/*<CarroDeCompras />}*/}
+      {/*<CarruselDeMarcas />*/}
+      {/**/}
+      <CarroDeCompras />
       {/*<PruebaHD />*/}
     </ThemeProvider>
   </StrictMode>

@@ -13,7 +13,7 @@
 //! ///////////////////////////////////////////
 
 //~ I § imports a Logos y recursos
-import { alpha, Box, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import theme from '../TemaCustom';
 import AnyDeskLogo from '../assets/LogosDeMarcas/anydesk.svg';
 import Kaspersky from '../assets/LogosDeMarcas/kaspersky.svg';
@@ -37,8 +37,9 @@ const doubled = [...brands, ...brands];
 export default function BrandCarousel() {
   return (
     <>
+      {/*//* I § Box para el background*/}
       <Box sx={{ background: theme.palette.utiles.azulHover }}>
-        {/*//* I § Box que contiene todo el carrusel */}
+        {/*//! I § Box que contiene el carrusel */}
         <Box
           sx={{
             width: '80%',
@@ -46,19 +47,10 @@ export default function BrandCarousel() {
           }}
         >
           {/*//+ I § Titulo del carrusel */}
-
           <Box
             sx={{
               justifySelf: 'center',
               textAlign: 'center',
-              mb: 3,
-              px: 4,
-              py: 2.5,
-              borderRadius: 4,
-              background: `linear-gradient(135deg, ${alpha('#fff', 0.15)}, ${alpha(theme.palette.utiles.cian, 0.05)})`,
-              backdropFilter: 'blur(10px)',
-              border: `1px solid ${alpha(theme.palette.utiles.cian, 0.25)}`,
-              boxShadow: `0 4px 30px ${alpha(theme.palette.utiles.azulProfundo, 0.1)}`,
             }}
           >
             <Typography
@@ -72,17 +64,6 @@ export default function BrandCarousel() {
               }}
             >
               ✦ Comunidad empresarial ✦
-            </Typography>
-            <Typography
-              sx={{
-                fontSize: { xs: '1.3rem', md: '1.9rem' },
-                fontWeight: 800,
-                background: `linear-gradient(90deg, ${theme.palette.primary.main}, ${theme.palette.utiles.cian})`,
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-              }}
-            >
-              Marcas que ya evolucionaron
             </Typography>
           </Box>
           {/*//+ T § Titulo del carrusel */}
@@ -128,6 +109,7 @@ export default function BrandCarousel() {
                 },
               }}
             >
+              {/*//^ I § Carga de logos */}
               {doubled.map((b, i) => (
                 <Box
                   key={i}
@@ -153,20 +135,24 @@ export default function BrandCarousel() {
                     '&:hover img': { filter: 'grayscale(0) opacity(1)' },
                   }}
                 >
+                  {/*//- I § Box de la Imagen de logos */}
                   <Box
                     component="img"
                     src={b.src}
                     alt={b.name}
                     sx={{ maxWidth: 140, maxHeight: 70, objectFit: 'contain' }}
                   />
+                  {/*//- T § Box de la Imagen de logos */}
                 </Box>
               ))}
+              {/*//^ T § Carga de logos */}
             </Box>
           </Box>
           {/*//~ T § Box del carrusel */}
         </Box>
-        {/*//* T § Box que contiene el carrusel */}
+        {/*//! T § Box que contiene el carrusel */}
       </Box>
+      {/*//* T § Box para el background*/}
     </>
   );
 }

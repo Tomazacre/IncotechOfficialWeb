@@ -13,18 +13,17 @@
 //! ///////////////////////////////////////////
 
 //~ § imports a documentos y recursos
-//import React from "react";
 import { useState, useEffect } from 'react';
 import logo from '../assets/IncotechLogo.png';
 import InfoModal from '../Componentes/COM_VentanaEmergente.tsx';
 import ContactModal from './COM_InfoContacto.tsx';
 import ServicesModal from './COM_InfoServicios.tsx';
 import BolsaModal from './COM_BolsaDeTrabajo.tsx';
+import RadioModal from './COM_Radio.tsx';
 //~ § imports a documentos y recursos
 
 //~ § Componentes y hooks de Material UI
 import {
-  Container, // Limita el ancho y centra contenido
   AppBar, // Barra superior fija
   Toolbar, // Contenedor interno del AppBar
   Typography, // Texto (logo)
@@ -80,13 +79,13 @@ const Navbar = () => {
   //~ § Links del menú (se renderizan dinámicamente con map)
 
   //~ § Variables que se van a utilizar en el Componente
-  const theme = useTheme(); // Obtiene el tema actual
-  const isMobile = useMediaQuery(theme.breakpoints.down('md')); // true si la pantalla es menor que "md"
-  const [mobileOpen, setMobileOpen] = useState(false); // Estado que controla si el menú móvil está abierto
-  const [scrolled, setScrolled] = useState(false); // Estado que controla si la navbar tiene blur (cuando haces scroll)
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   //~ § Variables que se van a utilizar en el Componente
 
-  //* § I Effect que detecta scroll y activa el blur después de 20px
+  //^ § I Effect que detecta scroll y activa el blur después de 20px
   useEffect(() => {
     const handleScroll = () => {
       const offset = window.scrollY; // Cuánto se ha bajado
@@ -97,7 +96,7 @@ const Navbar = () => {
 
     return () => window.removeEventListener('scroll', handleScroll); // Limpieza del evento cuando el componente se desmonta
   }, []);
-  //* § T Effect que detecta scroll y activa el blur después de 20px
+  //^ § T Effect que detecta scroll y activa el blur después de 20px
 
   //* § I Abre o cierra el Drawer móvil
   const handleDrawerToggle = () => {
@@ -107,7 +106,7 @@ const Navbar = () => {
 
   //! § I creacion de MenuSlide para Interaccion con Moviles
   const drawer = (
-    <Box // Box que contiene todo el drawer
+    <Box
       sx={{
         textAlign: 'center',
         height: '100%',
@@ -423,6 +422,7 @@ const Navbar = () => {
                 }}
               />
               {/* //& Imagen de logo */}
+
               {/* //* Texto de logo */}
               <Typography
                 variant="h5"
@@ -641,10 +641,11 @@ const Navbar = () => {
       <Toolbar sx={{ minHeight: { xs: 70, md: 80 } }} />
       {/* //+ T Espaciador */}
 
+      {/*//^ I § declaracion de Modales de informacion */}
       {openContact && <ContactModal open={openContact} onClose={() => setOpenContact(false)} />}
       {openServ && <ServicesModal open={openServ} onClose={() => setOpenServ(false)} />}
       {openProd && <InfoModal open={openProd} onClose={() => setOpenProd(false)} />}
-      {openRadio && <InfoModal open={openRadio} onClose={() => setOpenRadio(false)} />}
+      {openRadio && <RadioModal open={openRadio} onClose={() => setOpenRadio(false)} />}
       {openBolsa && (
         <BolsaModal
           open={openBolsa}
@@ -652,6 +653,7 @@ const Navbar = () => {
           onContacto={() => setOpenContact(true)}
         />
       )}
+      {/*//^ I § declaracion de Modales de informacion */}
     </>
   );
   //! § T Return de la visualizacion de los componentes

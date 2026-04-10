@@ -13,12 +13,10 @@
 //! ///////////////////////////////////////////
 
 //~ § Componentes y hooks de Material UI
-import { useEffect, useState } from 'react';
-import InfoModal from '../Componentes/COM_VentanaEmergente.tsx';
 import { Box, Container, Typography, Button, alpha, useTheme } from '@mui/material';
 import Navbar from './COM_navBar';
 import AboutIncotech from './COM_AcercaDe';
-import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
+import { motion } from 'framer-motion';
 import IncotechLogo from '../assets/IncotechLogo.png';
 import theme from '../TemaCustom';
 import Footer from './COM_Footer.tsx';
@@ -28,12 +26,12 @@ export default function HeroSection() {
   const tema = useTheme();
   const MotionBox = motion(Box);
 
-  const [open, setOpen] = useState(false);
-
   return (
     <>
       <Navbar />
+
       <Box sx={{ mt: '-30px' }} />
+
       {/* //! I box que contiene al Hero completo */}
       <Box
         component="section"
@@ -303,9 +301,9 @@ export default function HeroSection() {
         {/* //+ Puente diagonal hacia el About */}
       </Box>
       {/* //! I box que contiene al Hero completo */}
+
       <AboutIncotech />
       <Footer />
-      <InfoModal open={open} onClose={() => setOpen(false)} />
     </>
   );
 }
